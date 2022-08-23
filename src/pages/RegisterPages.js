@@ -1,8 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import withReactContent from 'sweetalert2-react-content';
+import Swal from 'sweetalert2';
 import FormInput from '../Components/FormInput';
 
 function RegisterPages() {
+  const MyAlert = withReactContent(Swal);
   const navigate = useNavigate();
   const [error, setError] = useState('');
   const [status, setStatus] = useState(200);
@@ -51,6 +54,11 @@ function RegisterPages() {
       .catch((err) => {
         setError(JSON.parse(err.message).error);
         setStatus(400);
+        MyAlert.fire({
+          title: <strong>Error</strong>,
+          html: <i>{JSON.parse(err.message).message}</i>,
+          icon: 'error',
+        }).then();
       });
   };
 

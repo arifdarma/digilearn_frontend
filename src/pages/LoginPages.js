@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 import FormInput from '../Components/FormInput';
 
 function LoginPages(props) {
+  const MyAlert = withReactContent(Swal);
   const { authenticate, setAuthenticate } = props;
   const navigate = useNavigate();
   const [error, setError] = useState('');
@@ -44,6 +47,11 @@ function LoginPages(props) {
       .catch((err) => {
         setError(JSON.parse(err.message).message);
         setStatus(JSON.parse(err.message).statusCode);
+        MyAlert.fire({
+          title: <strong>Error</strong>,
+          html: <i>{JSON.parse(err.message).message}</i>,
+          icon: 'error',
+        }).then();
       });
   };
   if (authenticate) {
