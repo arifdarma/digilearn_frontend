@@ -15,7 +15,7 @@ function Navigation() {
             <Link to="/" className="text-black" style={{ textDecoration: 'none' }}>Home</Link>
           </li>
           <li className="nav-item">
-            <Link to="/transfer" className="text-black" style={{ textDecoration: 'none' }}>Login</Link>
+            <Link to="/login" className="text-black" style={{ textDecoration: 'none' }}>Login</Link>
           </li>
           <li className="nav-item">
             <Link to="/transfer" className="text-black" style={{ textDecoration: 'none' }}>Register</Link>
