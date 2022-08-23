@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import FormInput from '../Components/FormInput';
 
 function LoginPages(props) {
   const { authenticate, setAuthenticate } = props;
@@ -57,14 +58,8 @@ function LoginPages(props) {
       </div>
       <div className="col-12 text-center">
         <form onSubmit={handleSubmit}>
-          <div className="col-12 my-3">
-            <label htmlFor="emailLogin" className="col-6">
-              <input className="form-control" type="text" placeholder="email" name="email" value={login.email} onChange={handleChange} />
-            </label>
-            <label htmlFor="passwordLogin" className="col-6">
-              <input className="form-control" type="password" placeholder="password" name="password" value={login.password} onChange={handleChange} />
-            </label>
-          </div>
+          <FormInput handlechange={handleChange} type="text" placeholder="email" name="email" value={login.email} htmlFor="emailLogin" />
+          <FormInput handlechange={handleChange} type="password" placeholder="password" name="password" value={login.password} htmlFor="passwordLogin" />
           <input data-testid="submitTransfer" type="submit" className="btn btn-primary form-control w-50" value="Login" />
         </form>
       </div>
