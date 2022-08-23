@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-function LoginPages() {
+function LoginPages(props) {
+  const { authenticate, setAuthenticate } = props;
+  const navigate = useNavigate();
   const [error, setError] = useState('');
   const [status, setStatus] = useState(200);
-  const [authenticate, setAuthenticate] = useState(localStorage.idToken);
   const [login, setLogin] = useState({
     email: '',
     password: '',
@@ -37,7 +38,7 @@ function LoginPages() {
       return response.json();
     }).then((data) => {
       localStorage.setItem('token', data.data.idToken);
-      setAuthenticate(localStorage.idToken);
+      setAuthenticate(localStorage.getItem('token'));
     })
       .catch((err) => {
         setError(JSON.parse(err.message).error);
@@ -46,7 +47,7 @@ function LoginPages() {
   };
 
   if (authenticate) {
-    return <Navigate replace to="/" />;
+    navigate('/');
   }
 
   return (

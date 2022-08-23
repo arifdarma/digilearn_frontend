@@ -2,8 +2,10 @@ import {
   Link,
   Outlet,
 } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
-function Navigation() {
+function Navigation(props) {
+  const { authenticate } = props;
   return (
     <div className="my-3">
       <nav className="d-flex justify-content-between">
@@ -14,12 +16,24 @@ function Navigation() {
           <li className="nav-item ">
             <Link to="/" className="text-black" style={{ textDecoration: 'none' }}>Home</Link>
           </li>
-          <li className="nav-item">
-            <Link to="/login" className="text-black" style={{ textDecoration: 'none' }}>Login</Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/transfer" className="text-black" style={{ textDecoration: 'none' }}>Register</Link>
-          </li>
+          {
+            authenticate
+              ? (
+                <li className="nav-item">
+                  <Link to="/logout" className="text-black" style={{ textDecoration: 'none' }}>Logout</Link>
+                </li>
+              )
+              : (
+                <>
+                  <li className="nav-item">
+                    <Link to="/login" className="text-black" style={{ textDecoration: 'none' }}>Login</Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/register" className="text-black" style={{ textDecoration: 'none' }}>Register</Link>
+                  </li>
+                </>
+              )
+          }
         </ul>
       </nav>
       <Outlet />
