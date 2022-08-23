@@ -2,6 +2,10 @@ import { useEffect, useState } from 'react';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
 import { Navigate } from 'react-router-dom';
+import Newbie from '../img/Newbie.png';
+import Junior from '../img/Junior.png';
+import Senior from '../img/Senior.png';
+import Master from '../img/Master.png';
 
 function ProfilePages() {
   const MyAlert = withReactContent(Swal);
@@ -15,6 +19,7 @@ function ProfilePages() {
     address: '',
     referralCode: '',
     level: '',
+    image: '',
   });
 
   useEffect(() => {
@@ -56,9 +61,19 @@ function ProfilePages() {
   if (error) {
     return <Navigate replace to="/login" />;
   }
+  if (user.level === 'Newbie') {
+    user.image = Newbie;
+  } else if (user.level === 'Junior') {
+    user.image = Junior;
+  } else if (user.level === 'Senior') {
+    user.image = Senior;
+  } else if (user.level === 'Master') {
+    user.image = Master;
+  }
   return (
     <>
       <h1>Profile</h1>
+      <img src={user.image} alt="Image" />
       <div>{user.name}</div>
       <div>{user.userName}</div>
       <div>{user.email}</div>
