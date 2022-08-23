@@ -8,6 +8,7 @@ import LoginPages from './pages/LoginPages';
 import LogoutPages from './pages/LogoutPages';
 import HomePages from './pages/HomePages';
 import RegisterPages from './pages/RegisterPages';
+import ProfilePages from './pages/ProfilePages';
 
 function App() {
   const [authenticate, setAuthenticate] = useState(localStorage.getItem('token'));
@@ -16,6 +17,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigation authenticate={authenticate} />}>
           <Route path="/" index element={<HomePages />} />
+          <Route path="/profile" index element={<ProfilePages />} />
           <Route path="/login" index element={<LoginPages authenticate={authenticate} setAuthenticate={setAuthenticate} />} />
           <Route path="/logout" index element={<LogoutPages authenticate={authenticate} setAuthenticate={setAuthenticate} />} />
           <Route path="/register" index element={<RegisterPages />} />

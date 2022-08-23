@@ -16,6 +16,9 @@ function Navigation(props) {
           <li className="nav-item ">
             <Link to="/" className="text-black" style={{ textDecoration: 'none' }}>Home</Link>
           </li>
+          <li className="nav-item ">
+            <Link to="/profile" className="text-black" style={{ textDecoration: 'none' }}>Profile</Link>
+          </li>
           {
             authenticate
               ? (
