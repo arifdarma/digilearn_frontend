@@ -10,7 +10,7 @@ import HomePages from './pages/HomePages';
 import RegisterPages from './pages/RegisterPages';
 
 function App() {
-  const [authenticate, setAuthenticate] = useState(localStorage.idToken);
+  const [authenticate, setAuthenticate] = useState(localStorage.getItem('token'));
   return (
     <div className="App container">
       <Routes>
