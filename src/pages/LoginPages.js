@@ -42,11 +42,10 @@ function LoginPages(props) {
       setAuthenticate(localStorage.getItem('token'));
     })
       .catch((err) => {
-        setError(JSON.parse(err.message).error);
-        setStatus(400);
+        setError(JSON.parse(err.message).message);
+        setStatus(JSON.parse(err.message).statusCode);
       });
   };
-
   if (authenticate) {
     navigate('/');
   }
@@ -54,7 +53,7 @@ function LoginPages(props) {
   return (
     <div>
       <div className="row-12 text-center">
-        <h1 data-testid="transfer">Transfer</h1>
+        <h1 data-testid="login">Login</h1>
       </div>
       <div className="col-12 text-center">
         <form onSubmit={handleSubmit}>

@@ -7,6 +7,7 @@ import Navigation from './Components/Navigation';
 import LoginPages from './pages/LoginPages';
 import LogoutPages from './pages/LogoutPages';
 import HomePages from './pages/HomePages';
+import RegisterPages from './pages/RegisterPages';
 
 function App() {
   const [authenticate, setAuthenticate] = useState(localStorage.idToken);
@@ -17,6 +18,7 @@ function App() {
           <Route path="/" index element={<HomePages />} />
           <Route path="/login" index element={<LoginPages authenticate={authenticate} setAuthenticate={setAuthenticate} />} />
           <Route path="/logout" index element={<LogoutPages authenticate={authenticate} setAuthenticate={setAuthenticate} />} />
+          <Route path="/register" index element={<RegisterPages />} />
         </Route>
       </Routes>
     </div>

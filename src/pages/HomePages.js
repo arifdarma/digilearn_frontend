@@ -1,6 +1,6 @@
 function HomePages() {
   return (
-    <div>ANAK DAJAL</div>
+    <div>TESTING HOME</div>
   );
 }
 
