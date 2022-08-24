@@ -120,26 +120,38 @@ function Profile() {
       <h1>Voucher</h1>
       <div>
         {
-          voucher.map((userVoucher) => (
-            <div className="row border my-3" id={userVoucher.id}>
-              <p className="col">{userVoucher.code}</p>
-              <p className="col">{userVoucher.value}</p>
-              <p className="col">{userVoucher.expired_date.split('T')[0]}</p>
-              <p className="col">{userVoucher.status}</p>
-            </div>
-          ))
+          voucher.length === 0
+            ? (
+              <p className="text-muted">NO VOUCHER</p>
+            )
+            : (
+              voucher.map((userVoucher) => (
+                <div className="row border my-3" id={userVoucher.id}>
+                  <p className="col">{userVoucher.code}</p>
+                  <p className="col">{userVoucher.value}</p>
+                  <p className="col">{userVoucher.expired_date.split('T')[0]}</p>
+                  <p className="col">{userVoucher.status}</p>
+                </div>
+              ))
+            )
         }
       </div>
       <h1>Gift</h1>
       <div>
         {
-                gift.map((userGift) => (
-                  <div className="row border my-3" id={userGift.id}>
-                    <p className="col">{userGift.gift_name}</p>
-                    <p className="col">{userGift.status}</p>
-                    <p className="col">{userGift.date_estimated.split('T')[0]}</p>
-                  </div>
-                ))
+          voucher.length === 0
+            ? (
+              <p className="text-muted">NO GIFT</p>
+            )
+            : (
+              gift.map((userGift) => (
+                <div className="row border my-3" id={userGift.id}>
+                  <p className="col">{userGift.gift_name}</p>
+                  <p className="col">{userGift.status}</p>
+                  <p className="col">{userGift.date_estimated.split('T')[0]}</p>
+                </div>
+              ))
+            )
             }
       </div>
     </>
