@@ -9,6 +9,7 @@ import Logout from './pages/Logout';
 import Home from './pages/Home';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
+import MyCourses from './pages/MyCourses';
 
 function App() {
   const [authenticate, setAuthenticate] = useState(localStorage.getItem('token'));
@@ -18,6 +19,7 @@ function App() {
         <Route path="/" element={<Navigation authenticate={authenticate} />}>
           <Route path="/" index element={<Home />} />
           <Route path="/profile" index element={<Profile />} />
+          <Route path="/my-course" index element={<MyCourses />} />
           <Route path="/login" index element={<Login authenticate={authenticate} setAuthenticate={setAuthenticate} />} />
           <Route path="/logout" index element={<Logout authenticate={authenticate} setAuthenticate={setAuthenticate} />} />
           <Route path="/register" index element={<Register />} />
