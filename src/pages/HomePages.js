@@ -37,7 +37,11 @@ function HomePages() {
           throw new Error(dataTrendingCourse);
         }
         setCourse(dataCourses.data);
-        setTrendingCourse(dataTrendingCourse.data);
+        if (dataTrendingCourse.data === null) {
+          setTrendingCourse([]);
+        } else {
+          setTrendingCourse(dataTrendingCourse.data);
+        }
       })
       .catch((err) => {
         MyAlert.fire({
@@ -51,20 +55,20 @@ function HomePages() {
     <>
       <h1>Trending Course</h1>
       {
-          trendingCourse.map((crs) => (
-            <div className="row" id={crs.id}>
-              <p className="col">{crs.name}</p>
-              <p className="col">{crs.price}</p>
-              <p className="col">{crs.author_name}</p>
-              <p className="col">{crs.total_purchase}</p>
-              <p className="col">{crs.category.Name}</p>
-              <div className="row">
-                {crs.tag.map((tag) => (
-                  <p className="col">{tag.Name}</p>
-                ))}
-              </div>
+        trendingCourse.map((crs) => (
+          <div className="row" id={crs.id}>
+            <p className="col">{crs.name}</p>
+            <p className="col">{crs.price}</p>
+            <p className="col">{crs.author_name}</p>
+            <p className="col">{crs.total_purchase}</p>
+            <p className="col">{crs.category.Name}</p>
+            <div className="row">
+              {crs.tag.map((tag) => (
+                <p className="col">{tag.Name}</p>
+              ))}
             </div>
-          ))
+          </div>
+        ))
         }
       <h1>Courses</h1>
       {
