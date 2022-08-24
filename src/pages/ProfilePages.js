@@ -73,8 +73,16 @@ function ProfilePages() {
           referralCode: dataProfile.data.referralCode,
           level: dataProfile.data.level,
         });
-        setVoucher(dataVoucher.data);
-        setGift(dataGift.data);
+        if (dataVoucher.data === null) {
+          setVoucher([]);
+        } else {
+          setVoucher(dataVoucher.data);
+        }
+        if (dataGift.data === null) {
+          setGift([]);
+        } else {
+          setGift(dataGift.data);
+        }
       })
       .catch((err) => {
         setError(JSON.parse(err.message).message);
