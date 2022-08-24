@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
 
-function LogoutPages(props) {
+function Logout(props) {
   const { authenticate, setAuthenticate } = props;
   useEffect(() => {
     const postLogout = 'http://localhost:8080/signout';
@@ -38,4 +38,4 @@ function LogoutPages(props) {
   return <Navigate replace to="/" />;
 }
 
-export default LogoutPages;
+export default Logout;

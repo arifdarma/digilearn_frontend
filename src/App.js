@@ -4,11 +4,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min';
 import { useState } from 'react';
 import Navigation from './Components/Navigation';
-import LoginPages from './pages/LoginPages';
-import LogoutPages from './pages/LogoutPages';
-import HomePages from './pages/HomePages';
-import RegisterPages from './pages/RegisterPages';
-import ProfilePages from './pages/ProfilePages';
+import Login from './pages/Login';
+import Logout from './pages/Logout';
+import Home from './pages/Home';
+import Register from './pages/Register';
+import Profile from './pages/Profile';
 
 function App() {
   const [authenticate, setAuthenticate] = useState(localStorage.getItem('token'));
@@ -16,11 +16,11 @@ function App() {
     <div className="App container">
       <Routes>
         <Route path="/" element={<Navigation authenticate={authenticate} />}>
-          <Route path="/" index element={<HomePages />} />
-          <Route path="/profile" index element={<ProfilePages />} />
-          <Route path="/login" index element={<LoginPages authenticate={authenticate} setAuthenticate={setAuthenticate} />} />
-          <Route path="/logout" index element={<LogoutPages authenticate={authenticate} setAuthenticate={setAuthenticate} />} />
-          <Route path="/register" index element={<RegisterPages />} />
+          <Route path="/" index element={<Home />} />
+          <Route path="/profile" index element={<Profile />} />
+          <Route path="/login" index element={<Login authenticate={authenticate} setAuthenticate={setAuthenticate} />} />
+          <Route path="/logout" index element={<Logout authenticate={authenticate} setAuthenticate={setAuthenticate} />} />
+          <Route path="/register" index element={<Register />} />
         </Route>
       </Routes>
     </div>

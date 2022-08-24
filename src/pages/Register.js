@@ -4,7 +4,7 @@ import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
 import FormInput from '../Components/FormInput';
 
-function RegisterPages() {
+function Register() {
   const MyAlert = withReactContent(Swal);
   const navigate = useNavigate();
   const [error, setError] = useState('');
@@ -83,4 +83,4 @@ function RegisterPages() {
   );
 }
 
-export default RegisterPages;
+export default Register;

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
 
-function HomePages() {
+function Home() {
   const [error, setError] = useState('');
   const [status, setStatus] = useState(200);
   const [course, setCourse] = useState([]);
@@ -91,4 +91,4 @@ function HomePages() {
   );
 }
 
-export default HomePages;
+export default Home;

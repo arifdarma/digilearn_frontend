@@ -7,7 +7,7 @@ import Junior from '../img/Junior.png';
 import Senior from '../img/Senior.png';
 import Master from '../img/Master.png';
 
-function ProfilePages() {
+function Profile() {
   const MyAlert = withReactContent(Swal);
   const [error, setError] = useState('');
   const [status, setStatus] = useState(200);
@@ -146,4 +146,4 @@ function ProfilePages() {
   );
 }
 
-export default ProfilePages;
+export default Profile;

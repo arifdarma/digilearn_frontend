@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import FormInput from '../Components/FormInput';
 
-function LoginPages(props) {
+function Login(props) {
   const MyAlert = withReactContent(Swal);
   const { authenticate, setAuthenticate } = props;
   const navigate = useNavigate();
@@ -74,4 +74,4 @@ function LoginPages(props) {
   );
 }
 
-export default LoginPages;
+export default Login;
