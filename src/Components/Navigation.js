@@ -20,6 +20,9 @@ function Navigation(props) {
             <Link to="/my-course" className="text-black" style={{ textDecoration: 'none' }}>My Course</Link>
           </li>
           <li className="nav-item ">
+            <Link to="/favourites" className="text-black" style={{ textDecoration: 'none' }}>Favourites</Link>
+          </li>
+          <li className="nav-item ">
             <Link to="/profile" className="text-black" style={{ textDecoration: 'none' }}>Profile</Link>
           </li>
           {
