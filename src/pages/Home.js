@@ -2,13 +2,17 @@ import { useEffect, useState } from 'react';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
+import Course from '../Components/Course';
 
 function Home() {
   const [error, setError] = useState('');
   const [status, setStatus] = useState(200);
   const [course, setCourse] = useState([]);
   const [trendingCourse, setTrendingCourse] = useState([]);
-
+  const formatter = new Intl.NumberFormat('id-ID', {
+    style: 'currency',
+    currency: 'IDR',
+  });
   useEffect(() => {
     const MyAlert = withReactContent(Swal);
     const getCourses = fetch('http://localhost:8080/courses', {
@@ -55,42 +59,21 @@ function Home() {
   return (
     <>
       <h1>Trending Course</h1>
-      {
+      <div className="row">
+        {
         trendingCourse.map((crs) => (
-          <div className="row" id={crs.id}>
-            <p className="col">{crs.name}</p>
-            <p className="col">{crs.price}</p>
-            <p className="col">{crs.author_name}</p>
-            <p className="col">{crs.total_purchase}</p>
-            <p className="col">{crs.category.Name}</p>
-            <div className="row">
-              {crs.tag.map((tag) => (
-                <p className="col">{tag.Name}</p>
-              ))}
-            </div>
-            <Link to={{ pathname: `/course/${crs.id}` }}>COURSE</Link>
-          </div>
+          <Course course={crs} />
         ))
         }
+      </div>
       <h1>Courses</h1>
-      {
-        course.map((crs) => (
-          <Link to={{ pathname: `/course/${crs.id}` }}>
-            <div className="row border my-3" id={crs.id}>
-              <p className="col">{crs.name}</p>
-              <p className="col">{crs.price}</p>
-              <p className="col">{crs.author_name}</p>
-              <p className="col">{crs.total_purchase}</p>
-              <p className="col">{crs.category.Name}</p>
-              <div className="row">
-                {crs.tag.map((tag) => (
-                  <p className="col">{tag.Name}</p>
-                ))}
-              </div>
-            </div>
-          </Link>
-        ))
-      }
+      <div className="row">
+        {
+          course.map((crs) => (
+            <Course course={crs} />
+          ))
+        }
+      </div>
     </>
   );
 }

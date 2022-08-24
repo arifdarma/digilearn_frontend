@@ -2,7 +2,6 @@ import {
   Link,
   Outlet,
 } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 
 function Navigation(props) {
   const { authenticate } = props;
@@ -10,7 +9,7 @@ function Navigation(props) {
     <div className="my-3">
       <nav className="d-flex justify-content-between">
         <div className="navbar-brand">
-          <Link to="/" className="nav-item text-black" style={{ textDecoration: 'none' }}>OLearn</Link>
+          <Link to="/" className="nav-item text-black fs-2" style={{ textDecoration: 'none' }}>DigiLearn</Link>
         </div>
         <ul className="navbar-nav d-flex flex-row gap-3">
           <li className="nav-item ">

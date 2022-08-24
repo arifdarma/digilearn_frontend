@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
 import { Navigate } from 'react-router-dom';
+import Course from '../Components/Course';
 
 function Favourites(props) {
   const [course, setCourse] = useState([]);
@@ -48,24 +49,16 @@ function Favourites(props) {
     return <Navigate replace to="/login" />;
   }
   return (
-    <div>
-      {
+    <>
+      <h1>Favourites</h1>
+      <div className="row">
+        {
         course.map((crs) => (
-          <div className="row" id={crs.id}>
-            <p className="col">{crs.name}</p>
-            <p className="col">{crs.price}</p>
-            <p className="col">{crs.author_name}</p>
-            <p className="col">{crs.total_purchase}</p>
-            <p className="col">{crs.category.Name}</p>
-            <div className="row">
-              {crs.tag.map((tag) => (
-                <p className="col">{tag.Name}</p>
-              ))}
-            </div>
-          </div>
+          <Course course={crs} />
         ))
       }
-    </div>
+      </div>
+    </>
   );
 }
 
