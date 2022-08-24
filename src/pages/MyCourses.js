@@ -1,8 +1,10 @@
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
 import { useEffect, useState } from 'react';
+import { Navigate } from 'react-router-dom';
 
 function MyCourses(props) {
+  const [error, setError] = useState('');
   const [course, setCourse] = useState([]);
   const MyAlert = withReactContent(Swal);
   useEffect(() => {
@@ -21,7 +23,7 @@ function MyCourses(props) {
       ))
       .then(([dataCourses]) => {
         if (dataCourses.statusCode !== 200) {
-          throw new Error(dataCourses);
+          throw new Error(dataCourses.message);
         }
         if (dataCourses.data === null) {
           setCourse([]);
@@ -30,13 +32,18 @@ function MyCourses(props) {
         }
       })
       .catch((err) => {
+        setError(err.message);
         MyAlert.fire({
           title: <strong>Error</strong>,
-          html: <i>{JSON.parse(err.message).message}</i>,
+          html: <i>{err.message}</i>,
           icon: 'error',
         }).then();
       });
   }, []);
+
+  if (error) {
+    return <Navigate replace to="/login" />;
+  }
   return (
     <div>
       {

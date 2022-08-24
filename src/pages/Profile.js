@@ -56,13 +56,13 @@ function Profile() {
       ))
       .then(([dataProfile, dataVoucher, dataGift]) => {
         if (dataProfile.statusCode !== 200) {
-          throw new Error(dataProfile);
+          throw new Error(dataProfile.message);
         }
         if (dataVoucher.statusCode !== 200) {
-          throw new Error(dataVoucher);
+          throw new Error(dataVoucher.message);
         }
         if (dataGift.statusCode !== 200) {
-          throw new Error(dataGift);
+          throw new Error(dataGift.message);
         }
         setUser({
           name: dataProfile.data.name,
@@ -85,11 +85,11 @@ function Profile() {
         }
       })
       .catch((err) => {
-        setError(JSON.parse(err.message).message);
-        setStatus(JSON.parse(err.message).statusCode);
+        setError(err.message);
+        setStatus(401);
         MyAlert.fire({
           title: <strong>Error</strong>,
-          html: <i>{JSON.parse(err.message).message}</i>,
+          html: <i>{err.message}</i>,
           icon: 'error',
         }).then();
       });
