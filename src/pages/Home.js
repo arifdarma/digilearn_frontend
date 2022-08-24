@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 function Home() {
   const [error, setError] = useState('');
@@ -67,24 +68,27 @@ function Home() {
                 <p className="col">{tag.Name}</p>
               ))}
             </div>
+            <Link to={{ pathname: `/course/${crs.id}` }}>COURSE</Link>
           </div>
         ))
         }
       <h1>Courses</h1>
       {
         course.map((crs) => (
-          <div className="row" id={crs.id}>
-            <p className="col">{crs.name}</p>
-            <p className="col">{crs.price}</p>
-            <p className="col">{crs.author_name}</p>
-            <p className="col">{crs.total_purchase}</p>
-            <p className="col">{crs.category.Name}</p>
-            <div className="row">
-              {crs.tag.map((tag) => (
-                <p className="col">{tag.Name}</p>
-              ))}
+          <Link to={{ pathname: `/course/${crs.id}` }}>
+            <div className="row border my-3" id={crs.id}>
+              <p className="col">{crs.name}</p>
+              <p className="col">{crs.price}</p>
+              <p className="col">{crs.author_name}</p>
+              <p className="col">{crs.total_purchase}</p>
+              <p className="col">{crs.category.Name}</p>
+              <div className="row">
+                {crs.tag.map((tag) => (
+                  <p className="col">{tag.Name}</p>
+                ))}
+              </div>
             </div>
-          </div>
+          </Link>
         ))
       }
     </>
