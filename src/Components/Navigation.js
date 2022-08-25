@@ -33,7 +33,15 @@ function Navigation(props) {
                     <Link to="/logout" className="text-black" style={{ textDecoration: 'none' }}>Logout</Link>
                   </li>
                   <li className="nav-item">
-                    <Link to="/cart" className="text-black" style={{ textDecoration: 'none' }}>{cart.length}</Link>
+                    <Link to="/cart" className="text-black position-relative" style={{ textDecoration: 'none' }}>
+                      <i className="bi bi-cart-fill" />
+                      <span
+                        className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                      >
+                        {cart.length}
+                        <span className="visually-hidden">unread messages</span>
+                      </span>
+                    </Link>
                   </li>
                 </>
               )

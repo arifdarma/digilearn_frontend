@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Navigation from './Components/Navigation';
 import Login from './pages/Login';
 import Logout from './pages/Logout';
@@ -17,6 +17,10 @@ import Cart from './pages/Cart';
 function App() {
   const [authenticate, setAuthenticate] = useState(localStorage.getItem('token'));
   const [cart, setCart] = useState([]);
+
+  useEffect(() => {
+    setCart(JSON.parse(localStorage.getItem('cart')));
+  }, []);
   return (
     <div className="App container">
       <Routes>

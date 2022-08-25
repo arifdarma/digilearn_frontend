@@ -68,9 +68,19 @@ function CourseDetail(props) {
   }
 
   const handleClick = () => {
-    const cr = cart.find((obj) => obj.id === course.id);
-    if (!cr) {
-      setCart([...cart, course]);
+    const c = JSON.parse(localStorage.getItem('cart'));
+    if (!c || c.length === 0) {
+      const arrCt = [];
+      arrCt.push(course);
+      localStorage.setItem('cart', JSON.stringify(arrCt));
+    } else {
+      const ct = JSON.parse(localStorage.getItem('cart'));
+      const cr = ct.find((obj) => obj.id === course.id);
+      if (!cr) {
+        setCart([...cart, course]);
+        ct.push(course);
+        localStorage.setItem('cart', JSON.stringify(ct));
+      }
     }
   };
 
@@ -88,7 +98,7 @@ function CourseDetail(props) {
         <p className="col">{course.category}</p>
         <div className="row">
           {course.tag.map((tag) => (
-            <p className="col">{tag.Name}</p>
+            <p key={tag.ID} className="col">{tag.Name}</p>
           ))}
         </div>
       </div>
