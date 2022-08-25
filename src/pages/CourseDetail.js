@@ -66,6 +66,13 @@ function CourseDetail(props) {
     return <Navigate replace to="/login" />;
   }
 
+  const handleClick = () => {
+    const cr = cart.includes(course);
+    if (!cr) {
+      setCart([...cart, course]);
+    }
+  };
+
   return (
     <div>
       <h1>Courses</h1>
@@ -84,7 +91,7 @@ function CourseDetail(props) {
           ))}
         </div>
       </div>
-      <button type="button">Add To Cart</button>
+      <button type="button" onClick={handleClick}>Add To Cart</button>
     </div>
   );
 }
