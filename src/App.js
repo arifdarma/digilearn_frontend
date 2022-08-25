@@ -13,13 +13,14 @@ import MyCourses from './pages/MyCourses';
 import Favourites from './pages/Favourites';
 import CourseDetail from './pages/CourseDetail';
 import Cart from './pages/Cart';
+import Payment from './pages/Payment';
 
 function App() {
   const [authenticate, setAuthenticate] = useState(localStorage.getItem('token'));
   const [cart, setCart] = useState([]);
 
   useEffect(() => {
-    setCart(JSON.parse(localStorage.getItem('cart')));
+    setCart(JSON.parse(localStorage.getItem('cart')) || []);
   }, []);
   return (
     <div className="App container">
@@ -35,6 +36,7 @@ function App() {
           <Route path="/logout" element={<Logout authenticate={authenticate} setAuthenticate={setAuthenticate} />} />
           <Route path="/register" element={<Register />} />
         </Route>
+        <Route path="/purchase/:id/:token" element={<Payment />} />
       </Routes>
     </div>
   );

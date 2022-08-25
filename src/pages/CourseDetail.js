@@ -73,6 +73,7 @@ function CourseDetail(props) {
       const arrCt = [];
       arrCt.push(course);
       localStorage.setItem('cart', JSON.stringify(arrCt));
+      setCart(arrCt);
     } else {
       const ct = JSON.parse(localStorage.getItem('cart'));
       const cr = ct.find((obj) => obj.id === course.id);

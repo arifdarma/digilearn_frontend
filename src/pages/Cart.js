@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
+import QRCode from 'react-qr-code';
 
 function Cart(props) {
   const { cart, setCart } = props;
@@ -84,7 +85,7 @@ function Cart(props) {
           icon: 'error',
         }).then();
       });
-    const ct = JSON.parse(localStorage.getItem('cart'));
+    const ct = JSON.parse(localStorage.getItem('cart')) || [];
     setCart(ct);
   }, []);
 
@@ -150,6 +151,7 @@ function Cart(props) {
   };
 
   const handleClick = () => {
+    let qrPayment = 'http://localhost:3001/purchase/';
     const postInvoice = 'http://localhost:8080/purchase';
     fetch(postInvoice, {
       method: 'POST',
@@ -164,10 +166,13 @@ function Cart(props) {
       }
       return response.json();
     }).then((data) => {
+      localStorage.removeItem('cart');
+      setCart([]);
+      qrPayment += `${data.data.id}/${localStorage.getItem('token')}`;
       MyAlert.fire({
-        title: <strong>Purchased</strong>,
-        html: <i>{data.data}</i>,
-        icon: 'success',
+        title: <strong>Scan QR</strong>,
+        html: <i><QRCode value={qrPayment} /></i>,
+        icon: 'info',
       }).then();
     }).catch((err) => {
       MyAlert.fire({
