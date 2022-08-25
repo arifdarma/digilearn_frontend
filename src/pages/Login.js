@@ -60,15 +60,17 @@ function Login(props) {
 
   return (
     <div>
-      <div className="row-12 text-center">
-        <h1 data-testid="login">Login</h1>
-      </div>
-      <div className="col-12 text-center">
-        <form onSubmit={handleSubmit}>
-          <FormInput handlechange={handleChange} type="text" placeholder="email" name="email" value={login.email} htmlFor="emailLogin" />
-          <FormInput handlechange={handleChange} type="password" placeholder="password" name="password" value={login.password} htmlFor="passwordLogin" />
-          <input data-testid="submitTransfer" type="submit" className="btn btn-primary form-control w-50" value="Login" />
-        </form>
+      <div style={{ margin: '20% auto' }}>
+        <div className="border rounded text-center w-25 position-relative p-3" style={{ margin: '0 auto' }}>
+          <h1 data-testid="login" className="my-3">Login</h1>
+          <form onSubmit={handleSubmit}>
+            <div className="col my-5">
+              <FormInput handlechange={handleChange} type="text" placeholder="email" name="email" value={login.email} htmlFor="emailLogin" />
+              <FormInput handlechange={handleChange} type="password" placeholder="password" name="password" value={login.password} htmlFor="passwordLogin" />
+              <input data-testid="submitTransfer" type="submit" className="btn btn-primary form-control w-100" value="Login" />
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

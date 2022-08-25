@@ -63,12 +63,10 @@ function Register() {
   };
 
   return (
-    <div>
-      <div className="row-12 text-center">
-        <h1 data-testid="register">Register</h1>
-      </div>
-      <div className="col-12 text-center">
-        <form onSubmit={handleSubmit}>
+    <div style={{ margin: '10% auto' }}>
+      <div className="border rounded text-center w-25 position-relative p-3" style={{ margin: '0 auto' }}>
+        <h1 data-testid="register" className="my-3">Register</h1>
+        <form onSubmit={handleSubmit} className="my-5">
           <FormInput handlechange={handleChange} type="text" placeholder="Name" name="name" value={register.name} htmlFor="nameRegister" />
           <FormInput handlechange={handleChange} type="text" placeholder="Email" name="email" value={register.email} htmlFor="emailRegister" />
           <FormInput handlechange={handleChange} type="password" placeholder="Password" name="password" value={register.password} htmlFor="passwordRegister" />
@@ -76,7 +74,7 @@ function Register() {
           <FormInput handlechange={handleChange} type="text" placeholder="Address" name="address" value={register.address} htmlFor="addressRegister" />
           <FormInput handlechange={handleChange} type="text" placeholder="Phone" name="phone" value={register.phone} htmlFor="phoneRegister" />
           <FormInput handlechange={handleChange} type="text" placeholder="Referral Code" name="referral_code" value={register.referral_code} htmlFor="referralCodeRegister" />
-          <input data-testid="submitTransfer" type="submit" className="btn btn-primary form-control w-50" value="Register" />
+          <input data-testid="submitTransfer" type="submit" className="btn btn-primary form-control w-100" value="Register" />
         </form>
       </div>
     </div>
