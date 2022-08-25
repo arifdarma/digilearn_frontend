@@ -1,13 +1,10 @@
 import { useEffect, useState } from 'react';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
-import { Link } from 'react-router-dom';
 import Course from '../Components/Course';
 
 function Home(props) {
   const { cart, setCart } = props;
-  const [error, setError] = useState('');
-  const [status, setStatus] = useState(200);
   const [course, setCourse] = useState([]);
   const [trendingCourse, setTrendingCourse] = useState([]);
   useEffect(() => {

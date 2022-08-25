@@ -85,6 +85,40 @@ function CourseDetail(props) {
     }
   };
 
+  const handleFavourite = (id) => {
+    const postAddFavourite = 'http://localhost:8080/favourites';
+    const favCourse = {
+      course_id: id,
+    };
+    fetch(postAddFavourite, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+      body: JSON.stringify(favCourse),
+    }).then((response) => {
+      if (!response.ok) {
+        return response.text().then((text) => { throw new Error(text); });
+      }
+      return response.json();
+    }).then((data) => {
+      MyAlert.fire({
+        title: <strong>Favourite Added</strong>,
+        html: <i>{data.data}</i>,
+        icon: 'success',
+      }).then();
+    })
+      .catch((err) => {
+        setError(JSON.parse(err.message).message);
+        MyAlert.fire({
+          title: <strong>Error</strong>,
+          html: <i>{JSON.parse(err.message).message}</i>,
+          icon: 'error',
+        }).then();
+      });
+  };
+
   return (
     <div>
       <h1>Courses</h1>
@@ -104,6 +138,7 @@ function CourseDetail(props) {
         </div>
       </div>
       <button type="button" onClick={handleClick}>Add To Cart</button>
+      <button type="button" onClick={() => handleFavourite(course.id)}>Add To Favourite</button>
     </div>
   );
 }

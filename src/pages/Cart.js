@@ -151,7 +151,7 @@ function Cart(props) {
   };
 
   const handleClick = () => {
-    let qrPayment = 'http://localhost:3001/purchase/';
+    let qrPayment = 'http://localhost:3000/purchase/';
     const postInvoice = 'http://localhost:8080/purchase';
     fetch(postInvoice, {
       method: 'POST',

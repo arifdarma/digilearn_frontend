@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import Course from '../Components/Course';
 
 function Favourites(props) {
+  const navigate = useNavigate();
   const [course, setCourse] = useState([]);
   const [status, setStatus] = useState(200);
   const [error, setError] = useState('');
@@ -45,9 +46,43 @@ function Favourites(props) {
       });
   }, []);
 
-  if (error === 'unauthorized error') {
-    return <Navigate replace to="/login" />;
-  }
+  const removeClick = (id) => {
+    const postRemoveFavourite = `http://localhost:8080/favourites/${id}`;
+    fetch(postRemoveFavourite, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    }).then((response) => {
+      if (!response.ok) {
+        return response.text().then((text) => { throw new Error(text); });
+      }
+      return response.json();
+    }).then((data) => {
+      setStatus(data.statusCode);
+      MyAlert.fire({
+        title: <strong>Success</strong>,
+        html: <i>{data.data}</i>,
+        icon: 'success',
+      }).then();
+    })
+      .catch((err) => {
+        setStatus(err.statusCode);
+        MyAlert.fire({
+          title: <strong>Error</strong>,
+          html: <i>{JSON.parse(err.message).message}</i>,
+          icon: 'error',
+        }).then();
+      });
+  };
+
+  useEffect(() => {
+    if (error === 'unauthorized error') {
+      navigate('/login');
+    }
+  }, [status]);
+
   return (
     <>
       <h1>Favourites</h1>
@@ -58,7 +93,7 @@ function Favourites(props) {
               <p className="text-muted" style={{ margin: '20% auto' }}>NO COURSE AVAILABLE</p>
             ) : (
               course.map((crs) => (
-                <Course course={crs} />
+                <Course course={crs} remove removeClick={removeClick} />
               ))
             )
       }
