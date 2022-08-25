@@ -7,8 +7,15 @@ function Cart(props) {
   const [total, setTotal] = useState(0);
   const MyAlert = withReactContent(Swal);
   const [error, setError] = useState('');
+  const [level, setLevel] = useState(0);
   const [status, setStatus] = useState(200);
   const [voucher, setVoucher] = useState([]);
+  const [disc, setDisc] = useState(0);
+  const [purchase, setPurchase] = useState({
+    voucher_id: 'null',
+    total: 0,
+    courses: [],
+  });
   const [user, setUser] = useState({
     name: '',
     userName: '',
@@ -82,12 +89,48 @@ function Cart(props) {
   }, []);
 
   useEffect(() => {
+    if (user.level === 'Junior') {
+      setLevel(5);
+    } else if (user.level === 'Senior') {
+      setLevel(10);
+    } else if (user.level === 'Master') {
+      setLevel(20);
+    }
+  }, [user]);
+
+  useEffect(() => {
     let temp = 0;
+    const arrCourse = [];
+    let vcId = purchase.voucher_id;
     for (const cartElement of cart) {
       temp += cartElement.price;
+      arrCourse.push(cartElement.id);
+    }
+    const benefit = level / 100;
+    temp -= (temp * benefit);
+    temp -= disc;
+    if (vcId === 'null') {
+      vcId = 0;
+    } else {
+      vcId = parseInt(vcId, 10);
     }
     setTotal(temp);
-  }, [cart]);
+    setPurchase({
+      voucher_id: vcId,
+      total: temp,
+      courses: arrCourse,
+    });
+  }, [cart, level, disc]);
+
+  useEffect(() => {
+    const v = voucher.find((obj) => obj.id === parseInt(purchase.voucher_id, 10));
+    if (v) {
+      setDisc(parseInt(v.value, 10));
+    }
+    if (!v) {
+      setDisc(0);
+    }
+  }, [purchase.voucher_id]);
 
   const removeCourse = (id) => {
     const c = JSON.parse(localStorage.getItem('cart'));
@@ -98,6 +141,43 @@ function Cart(props) {
     setCart(ct);
     localStorage.setItem('cart', JSON.stringify(ct));
   };
+
+  const handleChange = (event) => {
+    setPurchase((prevState) => ({
+      ...prevState,
+      [event.target.id]: event.target.value,
+    }));
+  };
+
+  const handleClick = () => {
+    const postInvoice = 'http://localhost:8080/purchase';
+    fetch(postInvoice, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+      body: JSON.stringify(purchase),
+    }).then((response) => {
+      if (!response.ok) {
+        return response.text().then((text) => { throw new Error(text); });
+      }
+      return response.json();
+    }).then((data) => {
+      MyAlert.fire({
+        title: <strong>Purchased</strong>,
+        html: <i>{data.data}</i>,
+        icon: 'success',
+      }).then();
+    }).catch((err) => {
+      MyAlert.fire({
+        title: <strong>Error</strong>,
+        html: <i>{JSON.parse(err.message).message}</i>,
+        icon: 'error',
+      }).then();
+    });
+  };
+
   return (
     <div>
       {
@@ -126,7 +206,46 @@ function Cart(props) {
               </div>
             ))
             }
+            <div className="row d-flex justify-content-center align-items-center">
+              <h3 style={{ textAlign: 'end', verticalAlign: 'bottom' }} className="col-9">Voucher</h3>
+              {
+                  voucher.length === 0 ? (
+                    <select className="disabled form-select my-3 col" id="voucher_id" name="source" onChange={handleChange} value={purchase.voucher_id}>
+                      <option value={purchase.voucher_id} className="text-muted">No Voucher Available</option>
+                    </select>
+                  ) : (
+                    <>
+                      <select className="form-select my-3 col" id="voucher_id" name="source" onChange={handleChange} value={purchase.voucher_id}>
+                        <option value={0}>Select Available Voucher</option>
+                        {
+                        voucher.map((v) => (
+                          <option key={v.id} id={v.id} value={v.id}>
+                            {v.value}
+                          </option>
+                        ))
+                      }
+                      </select>
+                      {
+                          disc === 0 ? (
+                            <p />
+                          ) : (
+                            <h3 style={{ textAlign: 'end', verticalAlign: 'bottom' }}>
+                              -
+                              {disc}
+                            </h3>
+                          )
+                        }
+                    </>
+                  )
+                }
+            </div>
             <h3 style={{ textAlign: 'end', verticalAlign: 'bottom' }}>
+              Loyalty Benefit =
+              {' '}
+              {level}
+              %
+            </h3>
+            <h3 style={{ textAlign: 'end', verticalAlign: 'bottom' }} onChange={handleChange}>
               Total =
               {' '}
               {total}
@@ -134,6 +253,7 @@ function Cart(props) {
           </>
         )
       }
+      <button type="submit" onClick={handleClick}>BUY</button>
     </div>
   );
 }
