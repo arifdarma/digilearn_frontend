@@ -46,13 +46,19 @@ function MyCourses(props) {
   }
   return (
     <div>
+      <h1>My Course</h1>
       {
-          course.map((crs) => (
-            <div className="row" id={crs.id}>
-              <p className="col">{crs.course_name}</p>
-              <p className="col">{crs.status}</p>
-            </div>
-          ))
+        course.length === 0
+          ? (
+            <p className="text-muted" style={{ margin: '20% auto' }}>NO COURSE AVAILABLE</p>
+          ) : (
+            course.map((crs) => (
+              <div className="row" id={crs.id}>
+                <p className="col">{crs.course_name}</p>
+                <p className="col">{crs.status}</p>
+              </div>
+            ))
+          )
         }
     </div>
   );

@@ -53,9 +53,14 @@ function Favourites(props) {
       <h1>Favourites</h1>
       <div className="row">
         {
-        course.map((crs) => (
-          <Course course={crs} />
-        ))
+          course.length === 0
+            ? (
+              <p className="text-muted" style={{ margin: '20% auto' }}>NO COURSE AVAILABLE</p>
+            ) : (
+              course.map((crs) => (
+                <Course course={crs} />
+              ))
+            )
       }
       </div>
     </>
