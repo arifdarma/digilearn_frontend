@@ -70,7 +70,7 @@ function Profile() {
           email: dataProfile.data.email,
           phoneNo: dataProfile.data.phone_no,
           address: dataProfile.data.address,
-          referralCode: dataProfile.data.referralCode,
+          referralCode: dataProfile.data.referral_code,
           level: dataProfile.data.level,
         });
         if (dataVoucher.data === null) {
@@ -139,7 +139,7 @@ function Profile() {
       <h1>Gift</h1>
       <div>
         {
-          voucher.length === 0
+          gift.length === 0
             ? (
               <p className="text-muted">NO GIFT</p>
             )
