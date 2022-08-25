@@ -4,7 +4,8 @@ import Swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
 import Course from '../Components/Course';
 
-function Home() {
+function Home(props) {
+  const { cart, setCart } = props;
   const [error, setError] = useState('');
   const [status, setStatus] = useState(200);
   const [course, setCourse] = useState([]);
@@ -70,7 +71,7 @@ function Home() {
       <div className="row">
         {
           course.map((crs) => (
-            <Course course={crs} />
+            <Course course={crs} cart={cart} setCart={setCart} />
           ))
         }
       </div>

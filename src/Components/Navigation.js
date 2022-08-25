@@ -4,7 +4,8 @@ import {
 } from 'react-router-dom';
 
 function Navigation(props) {
-  const { authenticate } = props;
+  const { authenticate, cart } = props;
+
   return (
     <div className="my-3">
       <nav className="d-flex justify-content-between">
@@ -27,9 +28,14 @@ function Navigation(props) {
           {
             authenticate
               ? (
-                <li className="nav-item">
-                  <Link to="/logout" className="text-black" style={{ textDecoration: 'none' }}>Logout</Link>
-                </li>
+                <>
+                  <li className="nav-item">
+                    <Link to="/logout" className="text-black" style={{ textDecoration: 'none' }}>Logout</Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/cart" className="text-black" style={{ textDecoration: 'none' }}>{cart.length}</Link>
+                  </li>
+                </>
               )
               : (
                 <>

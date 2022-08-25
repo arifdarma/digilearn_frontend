@@ -15,15 +15,16 @@ import CourseDetail from './pages/CourseDetail';
 
 function App() {
   const [authenticate, setAuthenticate] = useState(localStorage.getItem('token'));
+  const [cart, setCart] = useState([]);
   return (
     <div className="App container">
       <Routes>
-        <Route path="/" element={<Navigation authenticate={authenticate} />}>
-          <Route path="/" index element={<Home />} />
+        <Route path="/" element={<Navigation authenticate={authenticate} cart={cart} />}>
+          <Route path="/" index element={<Home cart={cart} setCart={setCart} />} />
           <Route path="/profile" index element={<Profile />} />
           <Route path="/my-course" index element={<MyCourses />} />
           <Route path="/favourites" index element={<Favourites />} />
-          <Route path="/course/:id" index element={<CourseDetail />} />
+          <Route path="/course/:id" index element={<CourseDetail setCart={setCart} cart={cart} />} />
           <Route path="/login" index element={<Login authenticate={authenticate} setAuthenticate={setAuthenticate} />} />
           <Route path="/logout" index element={<Logout authenticate={authenticate} setAuthenticate={setAuthenticate} />} />
           <Route path="/register" index element={<Register />} />

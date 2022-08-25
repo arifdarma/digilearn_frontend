@@ -41,7 +41,7 @@ function MyCourses(props) {
       });
   }, []);
 
-  if (error) {
+  if (error === 'unauthorized error') {
     return <Navigate replace to="/login" />;
   }
   return (

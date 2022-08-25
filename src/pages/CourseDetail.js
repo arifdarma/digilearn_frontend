@@ -3,7 +3,8 @@ import { Navigate, useParams } from 'react-router-dom';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
 
-function CourseDetail() {
+function CourseDetail(props) {
+  const { cart, setCart } = props;
   const MyAlert = withReactContent(Swal);
   const [error, setError] = useState('');
   const [course, setCourse] = useState(
@@ -60,9 +61,11 @@ function CourseDetail() {
         }).then();
       });
   }, []);
-  if (error) {
+
+  if (error === 'unauthorized error') {
     return <Navigate replace to="/login" />;
   }
+
   return (
     <div>
       <h1>Courses</h1>
@@ -81,6 +84,7 @@ function CourseDetail() {
           ))}
         </div>
       </div>
+      <button type="button">Add To Cart</button>
     </div>
   );
 }

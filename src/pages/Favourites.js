@@ -45,7 +45,7 @@ function Favourites(props) {
       });
   }, []);
 
-  if (error) {
+  if (error === 'unauthorized error') {
     return <Navigate replace to="/login" />;
   }
   return (

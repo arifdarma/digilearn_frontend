@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 function Course(props) {
-  const { course } = props;
+  const { course, cart, setCart } = props;
   const formatter = new Intl.NumberFormat('id-ID', {
     style: 'currency',
     currency: 'IDR',
   });
+  const a = {
+    id: 1,
+  };
   return (
     <div className="col-lg-3 text-start">
       <Link to={{ pathname: `/course/${course.id}` }} className="text-black" style={{ textDecoration: 'none' }}>
