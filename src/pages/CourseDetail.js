@@ -61,13 +61,14 @@ function CourseDetail(props) {
         }).then();
       });
   }, []);
-
+  useEffect(() => {
+  }, [cart]);
   if (error === 'unauthorized error') {
     return <Navigate replace to="/login" />;
   }
 
   const handleClick = () => {
-    const cr = cart.includes(course);
+    const cr = cart.find((obj) => obj.id === course.id);
     if (!cr) {
       setCart([...cart, course]);
     }

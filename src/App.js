@@ -12,6 +12,7 @@ import Profile from './pages/Profile';
 import MyCourses from './pages/MyCourses';
 import Favourites from './pages/Favourites';
 import CourseDetail from './pages/CourseDetail';
+import Cart from './pages/Cart';
 
 function App() {
   const [authenticate, setAuthenticate] = useState(localStorage.getItem('token'));
@@ -21,13 +22,14 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigation authenticate={authenticate} cart={cart} />}>
           <Route path="/" index element={<Home cart={cart} setCart={setCart} />} />
-          <Route path="/profile" index element={<Profile />} />
-          <Route path="/my-course" index element={<MyCourses />} />
-          <Route path="/favourites" index element={<Favourites />} />
-          <Route path="/course/:id" index element={<CourseDetail setCart={setCart} cart={cart} />} />
-          <Route path="/login" index element={<Login authenticate={authenticate} setAuthenticate={setAuthenticate} />} />
-          <Route path="/logout" index element={<Logout authenticate={authenticate} setAuthenticate={setAuthenticate} />} />
-          <Route path="/register" index element={<Register />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/my-course" element={<MyCourses />} />
+          <Route path="/favourites" element={<Favourites />} />
+          <Route path="/course/:id" element={<CourseDetail setCart={setCart} cart={cart} />} />
+          <Route path="/cart" element={<Cart setCart={setCart} cart={cart} />} />
+          <Route path="/login" element={<Login authenticate={authenticate} setAuthenticate={setAuthenticate} />} />
+          <Route path="/logout" element={<Logout authenticate={authenticate} setAuthenticate={setAuthenticate} />} />
+          <Route path="/register" element={<Register />} />
         </Route>
       </Routes>
     </div>

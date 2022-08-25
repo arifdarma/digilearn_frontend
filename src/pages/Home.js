@@ -10,10 +10,6 @@ function Home(props) {
   const [status, setStatus] = useState(200);
   const [course, setCourse] = useState([]);
   const [trendingCourse, setTrendingCourse] = useState([]);
-  const formatter = new Intl.NumberFormat('id-ID', {
-    style: 'currency',
-    currency: 'IDR',
-  });
   useEffect(() => {
     const MyAlert = withReactContent(Swal);
     const getCourses = fetch('http://localhost:8080/courses', {
@@ -63,7 +59,7 @@ function Home(props) {
       <div className="row">
         {
         trendingCourse.map((crs) => (
-          <Course course={crs} />
+          <Course key={crs.id} course={crs} />
         ))
         }
       </div>
@@ -71,7 +67,7 @@ function Home(props) {
       <div className="row">
         {
           course.map((crs) => (
-            <Course course={crs} cart={cart} setCart={setCart} />
+            <Course key={crs.id} course={crs} cart={cart} setCart={setCart} />
           ))
         }
       </div>

@@ -7,9 +7,6 @@ function Course(props) {
     style: 'currency',
     currency: 'IDR',
   });
-  const a = {
-    id: 1,
-  };
   return (
     <div className="col-lg-3 text-start">
       <Link to={{ pathname: `/course/${course.id}` }} className="text-black" style={{ textDecoration: 'none' }}>
@@ -32,7 +29,7 @@ function Course(props) {
               <b>{formatter.format(course.price)}</b>
             </p>
             {course.tag.map((tag) => (
-              <p className="my-0 ms-1 mt-1 fs-6 btn" style={{ background: 'lightgray' }}>
+              <p key={tag.ID} className="my-0 ms-1 mt-1 fs-6 btn" style={{ background: 'lightgray' }}>
                 #
                 {tag.Name}
               </p>
