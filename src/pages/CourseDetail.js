@@ -89,6 +89,15 @@ function CourseDetail(props) {
 
   const handleClick = (id) => {
     const c = JSON.parse(localStorage.getItem('cart'));
+    const owned = ownedCourse.find((obj) => obj.course_id === id);
+    if (owned) {
+      MyAlert.fire({
+        title: <strong>Error</strong>,
+        html: <i>Course Owned</i>,
+        icon: 'error',
+      }).then();
+      return;
+    }
     if (!c || c.length === 0) {
       const arrCt = [];
       arrCt.push(course);
@@ -97,15 +106,6 @@ function CourseDetail(props) {
     } else {
       const ct = JSON.parse(localStorage.getItem('cart'));
       const cr = ct.find((obj) => obj.id === course.id);
-      const owned = ownedCourse.find((obj) => obj.id === id);
-      if (owned) {
-        MyAlert.fire({
-          title: <strong>Error</strong>,
-          html: <i>Course Owned</i>,
-          icon: 'error',
-        }).then();
-        return;
-      }
       if (!cr) {
         setCart([...cart, course]);
         ct.push(course);
