@@ -12,34 +12,36 @@ function Navigation(props) {
         <div className="navbar-brand">
           <Link to="/" className="nav-item text-black fs-2" style={{ textDecoration: 'none' }}>DigiLearn</Link>
         </div>
-        <ul className="navbar-nav d-flex flex-row gap-3">
+        <ul className="nav navbar-nav d-flex flex-row gap-3">
           <li className="nav-item ">
-            <Link to="/" className="text-black" style={{ textDecoration: 'none' }}>Home</Link>
+            <Link to="/" className="nav-link text-black">Home</Link>
           </li>
           <li className="nav-item ">
-            <Link to="/my-course" className="text-black" style={{ textDecoration: 'none' }}>My Course</Link>
+            <Link to="/my-course" className="nav-link text-black" style={{ textDecoration: 'none' }}>My Course</Link>
           </li>
           <li className="nav-item ">
-            <Link to="/favourites" className="text-black" style={{ textDecoration: 'none' }}>Favourites</Link>
+            <Link to="/favourites" className="nav-link text-black" style={{ textDecoration: 'none' }}>Favourites</Link>
           </li>
           <li className="nav-item ">
-            <Link to="/profile" className="text-black" style={{ textDecoration: 'none' }}>Profile</Link>
+            <Link to="/profile" className="nav-link text-black" style={{ textDecoration: 'none' }}>Profile</Link>
           </li>
           {
             authenticate
               ? (
                 <>
                   <li className="nav-item">
-                    <Link to="/logout" className="text-black" style={{ textDecoration: 'none' }}>Logout</Link>
+                    <Link to="/logout" className="nav-link text-black" style={{ textDecoration: 'none' }}>Logout</Link>
                   </li>
                   <li className="nav-item">
-                    <Link to="/cart" className="text-black position-relative" style={{ textDecoration: 'none' }}>
-                      <i className="bi bi-cart-fill" />
-                      <span
-                        className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                      >
-                        {cart.length}
-                      </span>
+                    <Link to="/cart" className="nav-link text-black " style={{ textDecoration: 'none' }}>
+                      <i className="bi bi-cart-fill position-relative" style={{ fontSize: '130%' }}>
+                        <span
+                          className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                          style={{ fontSize: '60%' }}
+                        >
+                          {cart.length}
+                        </span>
+                      </i>
                     </Link>
                   </li>
                 </>
@@ -47,10 +49,10 @@ function Navigation(props) {
               : (
                 <>
                   <li className="nav-item">
-                    <Link to="/login" className="text-black" style={{ textDecoration: 'none' }}>Login</Link>
+                    <Link to="/login" className="nav-link text-black" style={{ textDecoration: 'none' }}>Login</Link>
                   </li>
                   <li className="nav-item">
-                    <Link to="/register" className="text-black" style={{ textDecoration: 'none' }}>Register</Link>
+                    <Link to="/register" className="nav-link text-black" style={{ textDecoration: 'none' }}>Register</Link>
                   </li>
                 </>
               )

@@ -258,7 +258,13 @@ function Cart(props) {
           </>
         )
       }
-      <button type="submit" onClick={handleClick}>BUY</button>
+      {
+        cart.length === 0 ? (
+          <p />
+        ) : (
+          <button type="submit" onClick={handleClick}>BUY</button>
+        )
+      }
     </div>
   );
 }
