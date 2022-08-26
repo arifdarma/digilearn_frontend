@@ -7,6 +7,7 @@ function CourseDetail(props) {
   const { cart, setCart } = props;
   const MyAlert = withReactContent(Swal);
   const [error, setError] = useState('');
+  const [ownedCourse, setOwnedCourse] = useState([]);
   const [course, setCourse] = useState(
     {
       id: '',
@@ -24,39 +25,58 @@ function CourseDetail(props) {
   const param = useParams();
 
   useEffect(() => {
-    const getCourseDetail = `http://localhost:8080/courses/${param.id}`;
-    fetch(getCourseDetail, {
+    const getCourseDetail = fetch(`http://localhost:8080/courses/${param.id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
-    }).then((response) => {
-      if (!response.ok) {
-        return response.text().then((text) => { throw new Error(text); });
-      }
-      return response.json();
-    }).then((data) => {
-      setCourse(
-        {
-          id: data.data.id,
-          name: data.data.name,
-          deskripsi: data.data.deskripsi,
-          price: data.data.price,
-          authorName: data.data.author_name,
-          totalCompleted: data.data.total_completed,
-          totalFavourite: data.data.total_favourite,
-          img_url: data.data.img_url,
-          category: data.data.category.Name,
-          tag: data.data.tag,
-        },
-      );
-    })
+    });
+    const getCourses = fetch('http://localhost:8080/users-courses', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+      body: null,
+    });
+
+    Promise.all([getCourses, getCourseDetail])
+      .then(([resCourses, resCourseDetail]) => Promise.all(
+        [resCourses.json(), resCourseDetail.json()],
+      ))
+      .then(([dataCourses, dataCourseDetail]) => {
+        if (dataCourses.statusCode !== 200) {
+          throw new Error(dataCourses.message);
+        }
+        if (dataCourseDetail.statusCode !== 200) {
+          throw new Error(dataCourseDetail.message);
+        }
+        setCourse(
+          {
+            id: dataCourseDetail.data.id,
+            name: dataCourseDetail.data.name,
+            deskripsi: dataCourseDetail.data.deskripsi,
+            price: dataCourseDetail.data.price,
+            authorName: dataCourseDetail.data.author_name,
+            totalCompleted: dataCourseDetail.data.total_completed,
+            totalFavourite: dataCourseDetail.data.total_favourite,
+            img_url: dataCourseDetail.data.img_url,
+            category: dataCourseDetail.data.category.Name,
+            tag: dataCourseDetail.data.tag,
+          },
+        );
+        if (dataCourses.data === null) {
+          setOwnedCourse([]);
+        } else {
+          setOwnedCourse(dataCourses.data);
+        }
+      })
       .catch((err) => {
-        setError(JSON.parse(err.message).message);
+        setError(err.message);
         MyAlert.fire({
           title: <strong>Error</strong>,
-          html: <i>{JSON.parse(err.message).message}</i>,
+          html: <i>{err.message}</i>,
           icon: 'error',
         }).then();
       });
@@ -67,7 +87,7 @@ function CourseDetail(props) {
     return <Navigate replace to="/login" />;
   }
 
-  const handleClick = () => {
+  const handleClick = (id) => {
     const c = JSON.parse(localStorage.getItem('cart'));
     if (!c || c.length === 0) {
       const arrCt = [];
@@ -77,6 +97,15 @@ function CourseDetail(props) {
     } else {
       const ct = JSON.parse(localStorage.getItem('cart'));
       const cr = ct.find((obj) => obj.id === course.id);
+      const owned = ownedCourse.find((obj) => obj.id === id);
+      if (owned) {
+        MyAlert.fire({
+          title: <strong>Error</strong>,
+          html: <i>Course Owned</i>,
+          icon: 'error',
+        }).then();
+        return;
+      }
       if (!cr) {
         setCart([...cart, course]);
         ct.push(course);
@@ -137,7 +166,7 @@ function CourseDetail(props) {
           ))}
         </div>
       </div>
-      <button type="button" onClick={handleClick}>Add To Cart</button>
+      <button type="button" onClick={() => handleClick(course.id)}>Add To Cart</button>
       <button type="button" onClick={() => handleFavourite(course.id)}>Add To Favourite</button>
     </div>
   );
