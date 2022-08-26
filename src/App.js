@@ -14,6 +14,7 @@ import Favourites from './pages/Favourites';
 import CourseDetail from './pages/CourseDetail';
 import Cart from './pages/Cart';
 import Payment from './pages/Payment';
+import History from './pages/History';
 
 function App() {
   const [authenticate, setAuthenticate] = useState(localStorage.getItem('token'));
@@ -30,6 +31,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/my-course" element={<MyCourses />} />
           <Route path="/favourites" element={<Favourites />} />
+          <Route path="/history" element={<History />} />
           <Route path="/course/:id" element={<CourseDetail setCart={setCart} cart={cart} />} />
           <Route path="/cart" element={<Cart setCart={setCart} cart={cart} />} />
           <Route path="/login" element={<Login authenticate={authenticate} setAuthenticate={setAuthenticate} />} />

@@ -30,6 +30,9 @@ function Navigation(props) {
               ? (
                 <>
                   <li className="nav-item">
+                    <Link to="/history" className="nav-link text-black" style={{ textDecoration: 'none' }}>History</Link>
+                  </li>
+                  <li className="nav-item">
                     <Link to="/logout" className="nav-link text-black" style={{ textDecoration: 'none' }}>Logout</Link>
                   </li>
                   <li className="nav-item">
