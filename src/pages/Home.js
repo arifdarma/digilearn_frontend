@@ -152,47 +152,58 @@ function Home(props) {
 
   return (
     <>
-      <h1>Trending Course</h1>
-      <div className="row">
+      <h2 className="text-start mt-3">Trending This Week</h2>
+      <div className="grid-container">
         {
         trendingCourse.map((crs) => (
           <Course key={crs.id} course={crs} />
         ))
         }
       </div>
-      <h1>Courses</h1>
+      <h2 className="mt-5 mb-2 text-start border-top pt-5">Courses</h2>
+      <p className="text-start">
+        Start learning now to improve your skill.
+        We provide best courses from best author with best learning experience.
+        Choose courses bellow now. You can also search course by courses type that you want.
+        What are you waiting for,
+        go purchase some course now and start improving your skill.
+      </p>
       <form className="d-flex justify-content-between my-3">
-        <label htmlFor="searching" className="mx-1">
-          <input className="form-control" id="searching" type="text" placeholder="search" name="filterName" onChange={handleChange} value={filterName} />
-        </label>
-        <label className="mx-1" htmlFor="sort-by">
-          <select id="sort-by" className="mx-1 form-select" onChange={handleChange} name="filterCategories">
-            <option value="All" selected>All Categories</option>
-            {
+        <div>
+          <label htmlFor="searching" className="mx-1">
+            <input className="form-control" id="searching" type="text" placeholder="search" name="filterName" onChange={handleChange} value={filterName} />
+          </label>
+          <label className="mx-1 dropdown" htmlFor="sort-by">
+            <select id="sort-by" className="mx-1 form-select" onChange={handleChange} name="filterCategories">
+              <option value="All" className="dropdown-item" selected>All Categories</option>
+              {
               categories.map((c) => (
                 <option key={c.ID} value={c.Name}>{c.Name}</option>
               ))
             }
-          </select>
-        </label>
-        <label className="mx-1" htmlFor="sort-by">
-          <select id="sort-by" className="mx-1 form-select" onChange={handleChange} name="filterTags" value={filterTags}>
-            <option value="All" selected>All Tags</option>
-            {
+            </select>
+          </label>
+          <label className="mx-1" htmlFor="sort-by">
+            <select id="sort-by" className="mx-1 form-select" onChange={handleChange} name="filterTags" value={filterTags}>
+              <option value="All" selected>All Tags</option>
+              {
               tags.map((t) => (
                 <option key={t.ID} value={t.Name}>{t.Name}</option>
               ))
             }
-          </select>
-        </label>
-        <label className="mx-1" htmlFor="sort-by">
-          <select id="sort-by" className="mx-1 form-select" onChange={handleChange} name="filterDate">
-            <option value="desc">Newest</option>
-            <option value="asc">Oldest</option>
-          </select>
-        </label>
+            </select>
+          </label>
+        </div>
+        <div>
+          <label className="mx-1" htmlFor="sort-by">
+            <select id="sort-by" className="mx-1 form-select" onChange={handleChange} name="filterDate">
+              <option value="desc">Newest</option>
+              <option value="asc">Oldest</option>
+            </select>
+          </label>
+        </div>
       </form>
-      <div className="row">
+      <div className="grid-container">
         {
           filterCourse.map((crs) => (
             <Course

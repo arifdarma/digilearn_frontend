@@ -24,7 +24,7 @@ function App() {
     setCart(JSON.parse(localStorage.getItem('cart')) || []);
   }, []);
   return (
-    <div className="App container">
+    <div className="App" style={{ background: '#EEF7FC' }}>
       <Routes>
         <Route path="/" element={<Navigation authenticate={authenticate} cart={cart} />}>
           <Route path="/" index element={<Home cart={cart} setCart={setCart} />} />
