@@ -6,6 +6,7 @@ import { Navigate } from 'react-router-dom';
 function MyCourses(props) {
   const [error, setError] = useState('');
   const [learn, setLearn] = useState(false);
+  const [isUpdated, setIsUpdated] = useState(false);
   const [course, setCourse] = useState([]);
   const MyAlert = withReactContent(Swal);
   useEffect(() => {
@@ -40,7 +41,7 @@ function MyCourses(props) {
           icon: 'error',
         }).then();
       });
-  }, []);
+  }, [isUpdated]);
 
   useEffect(() => {
     if (learn) {
@@ -86,6 +87,7 @@ function MyCourses(props) {
       }
       return response.json();
     }).then((data) => {
+      setIsUpdated(true);
       setLearn(true);
       MyAlert.fire({
         title: <strong>Success</strong>,

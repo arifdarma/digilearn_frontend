@@ -8,6 +8,7 @@ function Favourites(props) {
   const navigate = useNavigate();
   const [course, setCourse] = useState([]);
   const [status, setStatus] = useState(200);
+  const [isUpdated, setIsUpdated] = useState(false);
   const [error, setError] = useState('');
   const MyAlert = withReactContent(Swal);
 
@@ -44,7 +45,7 @@ function Favourites(props) {
           icon: 'error',
         }).then();
       });
-  }, []);
+  }, [isUpdated]);
 
   const removeClick = (id) => {
     const postRemoveFavourite = `http://localhost:8080/favourites/${id}`;
@@ -60,6 +61,7 @@ function Favourites(props) {
       }
       return response.json();
     }).then((data) => {
+      setIsUpdated(true);
       setStatus(data.statusCode);
       MyAlert.fire({
         title: <strong>Success</strong>,
