@@ -143,6 +143,13 @@ function Home(props) {
     });
   };
 
+  const handleClick = (event) => {
+    setFilterObj({
+      ...filterObj,
+      [event.target.name]: event.target.value,
+    });
+  };
+
   return (
     <>
       <h1>Trending Course</h1>
@@ -169,7 +176,7 @@ function Home(props) {
           </select>
         </label>
         <label className="mx-1" htmlFor="sort-by">
-          <select id="sort-by" className="mx-1 form-select" onChange={handleChange} name="filterTags" defaultValue="none">
+          <select id="sort-by" className="mx-1 form-select" onChange={handleChange} name="filterTags" value={filterTags}>
             <option value="All" selected>All Tags</option>
             {
               tags.map((t) => (
@@ -188,7 +195,13 @@ function Home(props) {
       <div className="row">
         {
           filterCourse.map((crs) => (
-            <Course key={crs.id} course={crs} cart={cart} setCart={setCart} />
+            <Course
+              key={crs.id}
+              course={crs}
+              cart={cart}
+              setCart={setCart}
+              handleClick={handleClick}
+            />
           ))
         }
       </div>
