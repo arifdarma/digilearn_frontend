@@ -61,7 +61,7 @@ function Login(props) {
   return (
     <div>
       <div style={{ margin: '20% auto' }}>
-        <div className="border rounded text-center w-25 position-relative p-3" style={{ margin: '0 auto' }}>
+        <div className="border rounded bg-white text-center w-25 position-relative p-3" style={{ margin: '0 auto' }}>
           <h1 data-testid="login" className="my-3">Login</h1>
           <form onSubmit={handleSubmit}>
             <div className="col my-5">

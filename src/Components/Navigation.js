@@ -52,10 +52,10 @@ function Navigation(props) {
               : (
                 <>
                   <li className="nav-item">
-                    <Link to="/login" className="nav-link text-black" style={{ textDecoration: 'none' }}>Login</Link>
+                    <Link to="/login" className="nav-link text-white" style={{ textDecoration: 'none' }}>Login</Link>
                   </li>
                   <li className="nav-item">
-                    <Link to="/register" className="nav-link text-black" style={{ textDecoration: 'none' }}>Register</Link>
+                    <Link to="/register" className="nav-link text-white" style={{ textDecoration: 'none' }}>Register</Link>
                   </li>
                 </>
               )

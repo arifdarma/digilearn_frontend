@@ -8,6 +8,10 @@ function CourseDetail(props) {
   const MyAlert = withReactContent(Swal);
   const [error, setError] = useState('');
   const [ownedCourse, setOwnedCourse] = useState([]);
+  const formatter = new Intl.NumberFormat('id-ID', {
+    style: 'currency',
+    currency: 'IDR',
+  });
   const [course, setCourse] = useState(
     {
       id: '',
@@ -149,25 +153,54 @@ function CourseDetail(props) {
   };
 
   return (
-    <div>
-      <h1>Courses</h1>
-      <div className="row" id={course.id}>
-        <img src={course.img_url} />
-        <p className="col">{course.name}</p>
-        <p className="col">{course.deskripsi}</p>
-        <p className="col">{course.price}</p>
-        <p className="col">{course.authorName}</p>
-        <p className="col">{course.totalCompleted}</p>
-        <p className="col">{course.totalFavourite}</p>
-        <p className="col">{course.category}</p>
-        <div className="row">
-          {course.tag.map((tag) => (
-            <p key={tag.ID} className="col">{tag.Name}</p>
-          ))}
+    <div className="my-3">
+      <div style={{ width: '100%' }} className="d-flex justify-content-between">
+        <div>
+          <p className="">
+            <b>
+              {course.category}
+              {' >'}
+            </b>
+          </p>
+          <div>
+            <h1 className="mt-3 mb-0">{course.name}</h1>
+            <p className="mt-0 mb-3 text-muted">
+              Bookmarked By
+              {' '}
+              {course.totalFavourite}
+              {' '}
+              Students
+            </p>
+            <p className=""><i>{course.authorName}</i></p>
+            <p className="m-0">{formatter.format(course.price)}</p>
+            <p className="mt-0 text-muted">
+              {course.totalCompleted}
+              {' '}
+              Students Has Finished The Course
+            </p>
+            <p className="">{course.deskripsi}</p>
+          </div>
+        </div>
+        <div style={{ width: '30%', minWidth: '400px' }}>
+          <div className="border p-5 rounded bg-white">
+            <img src={course.img_url} className="" style={{ height: '100%', width: '100%', objectFit: 'cover' }} alt="..." />
+          </div>
+          <button type="button" className="mt-3 btn btn-success text-center text-white" onClick={() => handleClick(course.id)} style={{ width: '100%' }}>
+            <h3>
+              Add To Cart
+              <i className="ms-3 bi bi-cart-plus-fill" />
+            </h3>
+          </button>
+          <button type="button" className="mt-3 btn text-center text-white" onClick={() => handleFavourite(course.id)} style={{ width: '100%', background: '#292728' }}>
+            <h3>
+              Add To Favourite
+              <i
+                className="ms-3 bi bi-bookmark-star-fill"
+              />
+            </h3>
+          </button>
         </div>
       </div>
-      <button type="button" onClick={() => handleClick(course.id)}>Add To Cart</button>
-      <button type="button" onClick={() => handleFavourite(course.id)}>Add To Favourite</button>
     </div>
   );
 }
