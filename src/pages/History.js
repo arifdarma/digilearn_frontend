@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
+import QRCode from 'react-qr-code';
 
 function History() {
+  const MyAlert = withReactContent(Swal);
   const [transaction, setTransaction] = useState([]);
+  const formatter = new Intl.NumberFormat('id-ID', {
+    style: 'currency',
+    currency: 'IDR',
+  });
 
   useEffect(() => {
-    const MyAlert = withReactContent(Swal);
     const getAllTransaction = 'http://localhost:8080/transactions';
     fetch(getAllTransaction, {
       method: 'GET',
@@ -31,25 +36,60 @@ function History() {
       });
   }, []);
 
+  const handleClick = (id) => {
+    const qrPayment = `http://localhost:3000/purchase/${id}/${localStorage.getItem('token')}`;
+    MyAlert.fire({
+      title: <strong>Scan QR</strong>,
+      html: <i><QRCode value={qrPayment} /></i>,
+      icon: 'info',
+    }).then();
+  };
+
   return (
     <div>
-      {
-        transaction.map((t) => (
-          <div className="row border my-1">
-            <p className="col">{t.id}</p>
-            <p className="col">{t.total}</p>
-            <p className="col">{t.status}</p>
-            <p className="col">
-              {
-              t.course_name.map((course) => (
-                <p className="row">{course}</p>
-              ))
-            }
-            </p>
-            <p className="col">{t.invoice_date.split('T')[0]}</p>
-          </div>
-        ))
-      }
+      <div>
+        <table className="table bg-white border mt-3">
+          <thead className="text-white" style={{ background: '#292728' }}>
+            <tr>
+              <th scope="col">No</th>
+              <th scope="col">Amount</th>
+              <th scope="col">Status</th>
+              <th scope="col">Courses</th>
+              <th scope="col">Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+            transaction.map((t, index) => (
+              <tr key={t.id} scope="row">
+                <th scope="row">
+                  {index + 1}
+                  .
+                </th>
+                <th className="col">{formatter.format(t.total)}</th>
+                {
+                  t.status === 'ORDER' || t.status === 'WAITING PAYMENT' ? (
+                    <th className="col">
+                      <button type="button" className="btn btn-warning" onClick={() => handleClick(t.id)}>{t.status}</button>
+                    </th>
+                  ) : (
+                    <th className="col">{t.status}</th>
+                  )
+                }
+                <th className="col">
+                  {
+                    t.course_name.map((course) => (
+                      <p className="row">{course}</p>
+                    ))
+                  }
+                </th>
+                <th className="col">{t.invoice_date.split('T')[0]}</th>
+              </tr>
+            ))
+          }
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
