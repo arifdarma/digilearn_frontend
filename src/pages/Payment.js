@@ -61,9 +61,9 @@ function Payment() {
     }
   }, [status]);
   return (
-    <div>
-      <div style={{ margin: '20% auto' }}>
-        <div className="border rounded text-center w-25 position-relative p-3" style={{ margin: '0 auto' }}>
+    <div className="d-flex justify-content-center align-items-center" style={{ height: '90vh' }}>
+      <div>
+        <div className="border rounded text-center bg-white p-3">
           <h1 data-testid="login" className="my-3">Payment</h1>
           <form onSubmit={handleSubmit}>
             <div className="col my-5">
