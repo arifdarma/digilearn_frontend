@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
 import QRCode from 'react-qr-code';
+import moment from 'moment';
 
 function Cart(props) {
   const { cart, setCart } = props;
   const [total, setTotal] = useState(0);
   const MyAlert = withReactContent(Swal);
+  const [userVoucher, setUserVoucher] = useState([]);
+  const [codeVoucher, setCodeVoucher] = useState('');
   const [error, setError] = useState('');
   const [level, setLevel] = useState(0);
   const [status, setStatus] = useState(200);
@@ -102,7 +105,12 @@ function Cart(props) {
   useEffect(() => {
     let temp = 0;
     const arrCourse = [];
-    let vcId = purchase.voucher_id;
+    let vcId;
+    if (userVoucher.length > 0) {
+      vcId = userVoucher[0].id;
+    } else {
+      vcId = 'null';
+    }
     for (const cartElement of cart) {
       temp += cartElement.price;
       arrCourse.push(cartElement.id);
@@ -124,14 +132,29 @@ function Cart(props) {
   }, [cart, level, disc]);
 
   useEffect(() => {
-    const v = voucher.find((obj) => obj.id === parseInt(purchase.voucher_id, 10));
-    if (v) {
-      setDisc(parseInt(v.value, 10));
-    }
-    if (!v) {
+    if (userVoucher.length === 0) {
       setDisc(0);
+    } else {
+      const v = voucher.find((obj) => obj.id === userVoucher[0].id);
+      if (v) {
+        setDisc(parseInt(v.value, 10));
+      }
+      if (!v) {
+        setDisc(0);
+      }
     }
-  }, [purchase.voucher_id]);
+  }, [userVoucher]);
+
+  useEffect(() => {
+    const temp = [...voucher];
+    setUserVoucher(temp.filter(
+      (obj) => obj.status === 'UNUSED',
+    )
+      .filter(
+        (obj) => obj.code.toLowerCase()
+          .includes(codeVoucher.toLowerCase()),
+      ));
+  }, [codeVoucher, voucher]);
 
   const removeCourse = (id) => {
     const c = JSON.parse(localStorage.getItem('cart'));
@@ -183,22 +206,27 @@ function Cart(props) {
     });
   };
 
+  const voucherChange = (event) => {
+    setCodeVoucher(event.target.value);
+  };
   return (
     <div>
       {
         cart.length === 0 ? (
-          <h3 className="text-muted">Cart Is Empty</h3>
+          <h3 className="text-muted mt-5">Cart Is Empty</h3>
         ) : (
           <>
-            <h2>Cart</h2>
+            <h2 className="mt-3">Cart</h2>
             {' '}
-            {
+            <div className="row">
+              <div className="col-8">
+                {
             cart.map((c) => (
               <div key={c.id} className="row my-3">
                 <div className="col-1 d-flex justify-content-center align-items-center">
                   <button type="button" className="btn btn-danger" onClick={() => removeCourse(c.id)}>X</button>
                 </div>
-                <div style={{ width: '20%' }}>
+                <div style={{ width: '30%' }}>
                   <img src={c.img_url} className="col" width="100%" />
                 </div>
                 <div className="col text-start">
@@ -211,58 +239,85 @@ function Cart(props) {
               </div>
             ))
             }
-            <div className="row d-flex justify-content-center align-items-center">
-              <h3 style={{ textAlign: 'end', verticalAlign: 'bottom' }} className="col-9">Voucher</h3>
-              {
-                  voucher.length === 0 ? (
-                    <select className="disabled form-select my-3 col" id="voucher_id" name="source" onChange={handleChange} value={purchase.voucher_id}>
-                      <option value={purchase.voucher_id} className="text-muted">No Voucher Available</option>
-                    </select>
-                  ) : (
-                    <>
-                      <select className="form-select my-3 col" id="voucher_id" name="source" onChange={handleChange} value={purchase.voucher_id}>
-                        <option value={0}>Select Available Voucher</option>
-                        {
-                        voucher.map((v) => (
-                          <option key={v.id} id={v.id} value={v.id}>
-                            {v.value}
-                          </option>
-                        ))
-                      }
-                      </select>
+              </div>
+              <div className="col-4">
+                <div className="row">
+                  <div className="col border rounded-1 bg-white ">
+                    <div className="row rounded" style={{ background: '#292728' }}>
+                      <h2 className="text-center text-white">INVOICES</h2>
+                    </div>
+                    <div className="row mt-1">
+                      <p className="col-8 text-start">Loyalty Benefit</p>
+                      <p className="col-4">
+                        {level}
+                        %
+                      </p>
+                    </div>
+                    <div className="row mt-1">
+                      <p className="col-8 text-start">Discount</p>
                       {
-                          disc === 0 ? (
-                            <p />
-                          ) : (
-                            <h3 style={{ textAlign: 'end', verticalAlign: 'bottom' }}>
-                              -
-                              {disc}
-                            </h3>
-                          )
-                        }
-                    </>
-                  )
-                }
+                        userVoucher.length > 0 ? (
+                          <p className="col-4">{userVoucher[0].value}</p>
+                        ) : (
+                          <p className="col-4">0</p>
+                        )
+                      }
+                    </div>
+                    <div className="row mt-1 border-top pt-3">
+                      <h4 className="col-8 text-start">Total</h4>
+                      <h4 className="col-4">{total}</h4>
+                    </div>
+                  </div>
+                </div>
+                <div className="row mt-4">
+                  <div className="col">
+                    <div className="row">
+                      <h5 className="col">
+                        Voucher Code
+                      </h5>
+                      <label htmlFor="voucherCode" className="col">
+                        <input className="form-control" id="voucherCode" type="text" placeholder="Voucher Code" name="codeVoucher" onChange={voucherChange} value={codeVoucher} />
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div className="row mt-4">
+                  <div className="col">
+                    <div className="row">
+                      <div className="col">
+                        <button type="submit" className="btn btn-success w-100" onClick={handleClick}>BUY</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="row bg-white mt-4">
+                  <div className="col border rounded">
+                    <div className="row border rounded" style={{ background: '#292728' }}>
+                      <div className="text-center">
+                        <h3 className="text-white">Voucher List Code</h3>
+                      </div>
+                    </div>
+                    <div className="row">
+                      {
+                        userVoucher.length === 0 ? (
+                          <h5 className="text-muted">No Voucher Available</h5>
+                        ) : (
+                          userVoucher.map((v) => (
+                            v.status === 'UNUSED' && !(moment(v.expired_date).isBefore(moment())) && (
+                              <div className="row">
+                                <p className="col">{v.code}</p>
+                                <p className="col">{formatter.format(v.value)}</p>
+                              </div>
+                            )
+                          ))
+                        )
+                      }
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <h3 style={{ textAlign: 'end', verticalAlign: 'bottom' }}>
-              Loyalty Benefit =
-              {' '}
-              {level}
-              %
-            </h3>
-            <h3 style={{ textAlign: 'end', verticalAlign: 'bottom' }} onChange={handleChange}>
-              Total =
-              {' '}
-              {total}
-            </h3>
           </>
-        )
-      }
-      {
-        cart.length === 0 ? (
-          <p />
-        ) : (
-          <button type="submit" onClick={handleClick}>BUY</button>
         )
       }
     </div>
