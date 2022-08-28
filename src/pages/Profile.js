@@ -13,6 +13,8 @@ function Profile() {
   const [status, setStatus] = useState(200);
   const [voucher, setVoucher] = useState([]);
   const [gift, setGift] = useState([]);
+  const today = new Date();
+  const date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
   const [user, setUser] = useState({
     name: '',
     userName: '',
@@ -108,51 +110,185 @@ function Profile() {
   }
   return (
     <>
-      <h1>Profile</h1>
-      <img src={user.image} alt="Image" />
-      <div>{user.name}</div>
-      <div>{user.userName}</div>
-      <div>{user.email}</div>
-      <div>{user.phoneNo}</div>
-      <div>{user.address}</div>
-      <div>{user.referralCode}</div>
-      <div>{user.level}</div>
-      <h1>Voucher</h1>
-      <div>
-        {
-          voucher.length === 0
-            ? (
-              <p className="text-muted">NO VOUCHER</p>
-            )
-            : (
-              voucher.map((userVoucher) => (
-                <div className="row border my-3" id={userVoucher.id}>
-                  <p className="col">{userVoucher.code}</p>
-                  <p className="col">{userVoucher.value}</p>
-                  <p className="col">{userVoucher.expired_date.split('T')[0]}</p>
-                  <p className="col">{userVoucher.status}</p>
-                </div>
-              ))
-            )
-        }
+      <h1 className="mt-5">Profile</h1>
+      <div className="col">
+        <div className="row">
+          <div className="col">
+            <img src={user.image} alt="Image" />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-3">
+            <p>Name</p>
+          </div>
+          <div className="col">
+            <p>{user.name}</p>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-3">
+            <p>User Name</p>
+          </div>
+          <div className="col">
+            <p>{user.userName}</p>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-3">
+            <p>Email</p>
+          </div>
+          <div className="col">
+            <p>{user.email}</p>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-3">
+            <p>Phone Number</p>
+          </div>
+          <div className="col">
+            <p>{user.phoneNo}</p>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-3">
+            <p>Address</p>
+          </div>
+          <div className="col">
+            <p>{user.address}</p>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-3">
+            <p>Referral Code</p>
+          </div>
+          <div className="col">
+            <p>{user.referralCode}</p>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-3">
+            <p>Level</p>
+          </div>
+          <div className="col">
+            <p>{user.level}</p>
+          </div>
+        </div>
       </div>
-      <h1>Gift</h1>
-      <div>
-        {
-          gift.length === 0
-            ? (
-              <p className="text-muted">NO GIFT</p>
-            )
-            : (
-              gift.map((userGift) => (
-                <div className="row border my-3" id={userGift.id}>
-                  <p className="col">{userGift.gift_name}</p>
-                  <p className="col">{userGift.status}</p>
-                  <p className="col">{userGift.date_estimated.split('T')[0]}</p>
-                </div>
-              ))
-            )
+      <nav>
+        <div className="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
+          <button
+            className="nav-link active"
+            id="nav-voucher-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#nav-home"
+            type="button"
+            role="tab"
+            aria-controls="nav-home"
+            aria-selected="true"
+            style={{ color: '#292728' }}
+          >
+            Voucher
+          </button>
+          <button
+            className="nav-link"
+            id="nav-gift-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#nav-profile"
+            type="button"
+            role="tab"
+            aria-controls="nav-profile"
+            aria-selected="false"
+            style={{ color: '#292728' }}
+          >
+            Gift
+          </button>
+        </div>
+      </nav>
+      <div className="tab-content" id="nav-tabContent">
+        <div className="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-voucher-tab">
+          <div>
+            <table className="table bg-white border mt-3">
+              <thead className="text-white" style={{ background: '#292728' }}>
+                <tr>
+                  <th scope="col">No</th>
+                  <th scope="col">Code</th>
+                  <th scope="col">Discount</th>
+                  <th scope="col">Expired Date</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                voucher.length === 0
+                  ? (
+                    <tr className="text-muted">NO VOUCHER</tr>
+                  )
+                  : (
+                    voucher.map((userVoucher, index) => (
+                      userVoucher.status === 'USED' ? (
+                        <tr key={userVoucher.id} style={{ color: 'white', background: 'gray' }}>
+                          <th scope="row">
+                            {index + 1}
+                            .
+                          </th>
+                          <th className="col">{userVoucher.code}</th>
+                          <th className="col">{userVoucher.value}</th>
+                          <th className="col">{userVoucher.expired_date.split('T')[0]}</th>
+                          <th className="col">{userVoucher.status}</th>
+                        </tr>
+                      ) : (
+                        <tr key={userVoucher.id} style={{ color: '#292728' }}>
+                          <th scope="row">
+                            {index + 1}
+                            .
+                          </th>
+                          <th className="col">{userVoucher.code}</th>
+                          <th className="col">{userVoucher.value}</th>
+                          <th className="col">{userVoucher.expired_date.split('T')[0]}</th>
+                          <th className="col">{userVoucher.status}</th>
+                        </tr>
+                      )
+                    ))
+                  )
+              }
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div className="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-gift-tab">
+          <div>
+            <table className="table bg-white border mt-3">
+              <thead className="text-white" style={{ background: '#292728' }}>
+                <tr>
+                  <th scope="col">No</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Date Estimated</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+              gift.length === 0
+                ? (
+                  <tr>
+                    <th className="text-muted">NO GIFT</th>
+                  </tr>
+                )
+                : (
+                  gift.map((userGift, index) => (
+                    <tr scope="row" id={userGift.id}>
+                      <th className="col">{index + 1}</th>
+                      <th className="col">{userGift.gift_name}</th>
+                      <th className="col">{userGift.status}</th>
+                      <th className="col">{userGift.date_estimated.split('T')[0]}</th>
+                    </tr>
+                  ))
+                )
             }
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </>
   );
