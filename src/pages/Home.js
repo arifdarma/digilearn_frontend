@@ -153,13 +153,20 @@ function Home(props) {
   return (
     <>
       <h2 className="text-start mt-3">Trending This Week</h2>
-      <div className="grid-container">
-        {
-        trendingCourse.map((crs) => (
-          <Course key={crs.id} course={crs} />
-        ))
-        }
-      </div>
+      {
+        trendingCourse.length > 0 ? (
+          <div className="grid-container">
+            {
+              trendingCourse.map((crs) => (
+                <Course key={crs.id} course={crs} />
+              ))
+            }
+          </div>
+        ) : (
+          <h5 className="mt-5 text-center   text-muted">No Trend In This Week</h5>
+        )
+      }
+
       <h2 className="mt-5 mb-2 text-start border-top pt-5">Courses</h2>
       <p className="text-start">
         Start learning now to improve your skill.

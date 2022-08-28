@@ -153,7 +153,7 @@ function CourseDetail(props) {
   };
 
   return (
-    <div className="my-3">
+    <div className="my-3 border-bottom p-3">
       <div style={{ width: '100%' }} className="d-flex justify-content-between">
         <div>
           <p className="">
