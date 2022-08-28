@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
 import { Navigate } from 'react-router-dom';
+import moment from 'moment';
 import Newbie from '../img/Newbie.png';
 import Junior from '../img/Junior.png';
 import Senior from '../img/Senior.png';
@@ -108,6 +109,7 @@ function Profile() {
   } else if (user.level === 'Master') {
     user.image = Master;
   }
+
   return (
     <>
       <h1 className="mt-5">Profile</h1>
@@ -225,7 +227,7 @@ function Profile() {
                   )
                   : (
                     voucher.map((userVoucher, index) => (
-                      userVoucher.status === 'USED' ? (
+                      userVoucher.status === 'USED' || moment(userVoucher.expired_date).isBefore(moment()) ? (
                         <tr key={userVoucher.id} style={{ color: 'white', background: 'gray' }}>
                           <th scope="row">
                             {index + 1}

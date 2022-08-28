@@ -107,7 +107,8 @@ function MyCourses(props) {
   return (
     <div>
       <h1>My Course</h1>
-      {
+      <div className="bg-white m-2 p-5 border rounded-5">
+        {
         course.length === 0
           ? (
             <p className="text-muted" style={{ margin: '20% auto' }}>NO COURSE AVAILABLE</p>
@@ -127,6 +128,7 @@ function MyCourses(props) {
             ))
           )
         }
+      </div>
     </div>
   );
 }
