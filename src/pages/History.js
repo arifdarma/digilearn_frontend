@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import QRCode from 'react-qr-code';
 import { API_TRANSACTIONS } from '../constants/ApiConstants';
 import environment from '../utils/environment';
+import { URL_PURCHASE } from '../constants/WebAppConstants';
 
 function History() {
   const MyAlert = withReactContent(Swal);
@@ -39,7 +40,7 @@ function History() {
   }, []);
 
   const handleClick = (id) => {
-    const qrPayment = `http://localhost:3000/purchase/${id}/${localStorage.getItem('token')}`;
+    const qrPayment = `${environment.baseWebApp}${URL_PURCHASE}${id}/${localStorage.getItem('token')}`;
     MyAlert.fire({
       title: <strong>Scan QR</strong>,
       html: <i><QRCode value={qrPayment} /></i>,

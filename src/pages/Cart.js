@@ -7,6 +7,7 @@ import {
   API_PURCHASE, API_USER_DETAIL, API_VOUCHERS,
 } from '../constants/ApiConstants';
 import environment from '../utils/environment';
+import { URL_PURCHASE } from '../constants/WebAppConstants';
 
 function Cart(props) {
   const { cart, setCart } = props;
@@ -178,7 +179,7 @@ function Cart(props) {
   };
 
   const handleClick = () => {
-    let qrPayment = 'http://localhost:3000/purchase/';
+    let qrPayment = `${environment.baseWebApp}${URL_PURCHASE}`;
     const postInvoice = `${environment.baseRootApi}${API_PURCHASE}`;
     fetch(postInvoice, {
       method: 'POST',
