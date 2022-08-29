@@ -3,6 +3,8 @@ import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
 import { Navigate, useNavigate } from 'react-router-dom';
 import Course from '../Components/Course';
+import environment from '../utils/environment';
+import { API_FAVOURITES } from '../constants/ApiConstants';
 
 function Favourites(props) {
   const navigate = useNavigate();
@@ -13,7 +15,7 @@ function Favourites(props) {
   const MyAlert = withReactContent(Swal);
 
   useEffect(() => {
-    const getCourses = fetch('http://localhost:8080/favourites', {
+    const getCourses = fetch(`${environment.baseRootApi}${API_FAVOURITES}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -48,7 +50,7 @@ function Favourites(props) {
   }, [isUpdated]);
 
   const removeClick = (id) => {
-    const postRemoveFavourite = `http://localhost:8080/favourites/${id}`;
+    const postRemoveFavourite = `${environment.baseRootApi}${API_FAVOURITES}/${id}`;
     fetch(postRemoveFavourite, {
       method: 'DELETE',
       headers: {

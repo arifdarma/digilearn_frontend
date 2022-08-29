@@ -3,6 +3,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
 import FormInput from '../Components/FormInput';
+import { API_PAYMENTS } from '../constants/ApiConstants';
+import environment from '../utils/environment';
 
 function Payment() {
   const param = useParams();
@@ -26,7 +28,7 @@ function Payment() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const postPayment = 'http://localhost:8080/payments';
+    const postPayment = `${environment.baseRootApi}${API_PAYMENTS}`;
     fetch(postPayment, {
       method: 'POST',
       headers: {

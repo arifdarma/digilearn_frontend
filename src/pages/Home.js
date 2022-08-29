@@ -2,6 +2,10 @@ import { useEffect, useState } from 'react';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
 import Course from '../Components/Course';
+import environment from '../utils/environment';
+import {
+  API_CATEGORIES, API_COURSES, API_TAGS, API_TRENDING_COURSE,
+} from '../constants/ApiConstants';
 
 function Home(props) {
   const { cart, setCart } = props;
@@ -23,28 +27,28 @@ function Home(props) {
 
   useEffect(() => {
     const MyAlert = withReactContent(Swal);
-    const getCourses = fetch('http://localhost:8080/courses', {
+    const getCourses = fetch(`${environment.baseRootApi}${API_COURSES}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
       body: null,
     });
-    const getTrendingCourse = fetch('http://localhost:8080/trending-courses', {
+    const getTrendingCourse = fetch(`${environment.baseRootApi}${API_TRENDING_COURSE}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
       body: null,
     });
-    const getCategories = fetch('http://localhost:8080/categories', {
+    const getCategories = fetch(`${environment.baseRootApi}${API_CATEGORIES}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
       body: null,
     });
-    const getTags = fetch('http://localhost:8080/tags', {
+    const getTags = fetch(`${environment.baseRootApi}${API_TAGS}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

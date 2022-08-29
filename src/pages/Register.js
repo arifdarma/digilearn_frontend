@@ -3,6 +3,8 @@ import { useState } from 'react';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
 import FormInput from '../Components/FormInput';
+import { API_SIGNUP } from '../constants/ApiConstants';
+import environment from '../utils/environment';
 
 function Register() {
   const MyAlert = withReactContent(Swal);
@@ -26,7 +28,7 @@ function Register() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const postRegister = 'http://localhost:8080/signup';
+    const postRegister = `${environment.baseRootApi}${API_SIGNUP}`;
     const registerObj = {
       name: register.name,
       email: register.email,

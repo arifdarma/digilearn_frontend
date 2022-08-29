@@ -7,6 +7,10 @@ import Newbie from '../img/Newbie.png';
 import Junior from '../img/Junior.png';
 import Senior from '../img/Senior.png';
 import Master from '../img/Master.png';
+import {
+  API_USER_COURSE, API_USERS, API_USERS_GIFTS, API_VOUCHERS,
+} from '../constants/ApiConstants';
+import environment from '../utils/environment';
 
 function Profile() {
   const MyAlert = withReactContent(Swal);
@@ -28,7 +32,7 @@ function Profile() {
   });
 
   useEffect(() => {
-    const getProfile = fetch('http://localhost:8080/users', {
+    const getProfile = fetch(`${environment.baseRootApi}${API_USERS}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -36,7 +40,7 @@ function Profile() {
       },
       body: null,
     });
-    const getVoucher = fetch('http://localhost:8080/vouchers', {
+    const getVoucher = fetch(`${environment.baseRootApi}${API_VOUCHERS}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -44,7 +48,7 @@ function Profile() {
       },
       body: null,
     });
-    const getGift = fetch('http://localhost:8080/users-gifts', {
+    const getGift = fetch(`${environment.baseRootApi}${API_USERS_GIFTS}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

@@ -3,6 +3,10 @@ import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
 import QRCode from 'react-qr-code';
 import moment from 'moment';
+import {
+  API_PURCHASE, API_USER_DETAIL, API_VOUCHERS,
+} from '../constants/ApiConstants';
+import environment from '../utils/environment';
 
 function Cart(props) {
   const { cart, setCart } = props;
@@ -36,7 +40,7 @@ function Cart(props) {
   });
 
   useEffect(() => {
-    const getProfile = fetch('http://localhost:8080/users', {
+    const getProfile = fetch(`${environment.baseRootApi}${API_USER_DETAIL}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -44,7 +48,7 @@ function Cart(props) {
       },
       body: null,
     });
-    const getVoucher = fetch('http://localhost:8080/vouchers', {
+    const getVoucher = fetch(`${environment.baseRootApi}${API_VOUCHERS}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -175,7 +179,7 @@ function Cart(props) {
 
   const handleClick = () => {
     let qrPayment = 'http://localhost:3000/purchase/';
-    const postInvoice = 'http://localhost:8080/purchase';
+    const postInvoice = `${environment.baseRootApi}${API_PURCHASE}`;
     fetch(postInvoice, {
       method: 'POST',
       headers: {

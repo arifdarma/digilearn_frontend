@@ -2,6 +2,8 @@ import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
 import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
+import { API_GIFTS, API_USER_COURSE } from '../constants/ApiConstants';
+import environment from '../utils/environment';
 
 function MyCourses(props) {
   const [error, setError] = useState('');
@@ -10,7 +12,7 @@ function MyCourses(props) {
   const [course, setCourse] = useState([]);
   const MyAlert = withReactContent(Swal);
   useEffect(() => {
-    const getCourses = fetch('http://localhost:8080/users-courses', {
+    const getCourses = fetch(`${environment.baseRootApi}${API_USER_COURSE}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -45,7 +47,7 @@ function MyCourses(props) {
 
   useEffect(() => {
     if (learn) {
-      const postDeliverGift = 'http://localhost:8080/gifts';
+      const postDeliverGift = `${environment.baseRootApi}${API_GIFTS}`;
       fetch(postDeliverGift, {
         method: 'POST',
         headers: {
@@ -74,7 +76,7 @@ function MyCourses(props) {
   }
 
   const startClick = (id) => {
-    const postStartCourse = `http://localhost:8080/users-courses/${id}`;
+    const postStartCourse = `${environment.baseRootApi}${API_USER_COURSE}/${id}`;
     fetch(postStartCourse, {
       method: 'PATCH',
       headers: {

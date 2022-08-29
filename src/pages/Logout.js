@@ -2,11 +2,13 @@ import { useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
+import { API_SIGNOUT } from '../constants/ApiConstants';
+import environment from '../utils/environment';
 
 function Logout(props) {
   const { authenticate, setAuthenticate } = props;
   useEffect(() => {
-    const postLogout = 'http://localhost:8080/signout';
+    const postLogout = `${environment.baseRootApi}${API_SIGNOUT}`;
     fetch(postLogout, {
       method: 'POST',
       headers: {

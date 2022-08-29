@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
 import QRCode from 'react-qr-code';
+import { API_TRANSACTIONS } from '../constants/ApiConstants';
+import environment from '../utils/environment';
 
 function History() {
   const MyAlert = withReactContent(Swal);
@@ -12,7 +14,7 @@ function History() {
   });
 
   useEffect(() => {
-    const getAllTransaction = 'http://localhost:8080/transactions';
+    const getAllTransaction = `${environment.baseRootApi}${API_TRANSACTIONS}`;
     fetch(getAllTransaction, {
       method: 'GET',
       headers: {

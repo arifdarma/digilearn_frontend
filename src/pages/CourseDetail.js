@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
+import environment from '../utils/environment';
+import { API_COURSES, API_FAVOURITES, API_USER_COURSE } from '../constants/ApiConstants';
 
 function CourseDetail(props) {
   const { cart, setCart } = props;
@@ -29,14 +31,14 @@ function CourseDetail(props) {
   const param = useParams();
 
   useEffect(() => {
-    const getCourseDetail = fetch(`http://localhost:8080/courses/${param.id}`, {
+    const getCourseDetail = fetch(`${environment.baseRootApi}${API_COURSES}/${param.id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
     });
-    const getCourses = fetch('http://localhost:8080/users-courses', {
+    const getCourses = fetch(`${environment.baseRootApi}${API_USER_COURSE}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -119,7 +121,7 @@ function CourseDetail(props) {
   };
 
   const handleFavourite = (id) => {
-    const postAddFavourite = 'http://localhost:8080/favourites';
+    const postAddFavourite = `${environment.baseRootApi}${API_FAVOURITES}`;
     const favCourse = {
       course_id: id,
     };
