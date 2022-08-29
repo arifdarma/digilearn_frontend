@@ -96,7 +96,7 @@ function AdminReward(props) {
                 <label htmlFor="inputStock" className="col-sm-2 col-lg-6">
                   <input type="text" className="form-control" id="inputStock" name="statusDelivery" placeholder={updateDeliveryGift.status} onChange={statusChange} value={statusDelivery} />
                 </label>
-                <button type="button" className="btn btn-success col-4" onClick={updateStatusDelivery}>Update Stock</button>
+                <button type="button" className="btn btn-success col-4" onClick={updateStatusDelivery}>Update Status</button>
               </div>
             </div>
           </div>
