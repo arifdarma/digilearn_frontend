@@ -16,3 +16,5 @@ export const API_GIFTS = '/gifts';
 export const API_USERS_GIFTS = '/users-gifts';
 export const API_PAYMENTS = '/payments';
 export const API_USERS = '/users';
+
+export const API_ADMIN_GIFTS = '/gifts';
