@@ -66,7 +66,7 @@ function Register() {
 
   return (
     <div style={{ margin: '10% auto' }}>
-      <div className="border bg-white rounded text-center w-25 position-relative p-3" style={{ margin: '0 auto' }}>
+      <div className="border bg-white rounded text-center col-sm-12 col-lg-4 position-relative p-3" style={{ margin: '0 auto' }}>
         <h1 data-testid="register" className="my-3">Register</h1>
         <form onSubmit={handleSubmit} className="my-5">
           <FormInput handlechange={handleChange} type="text" placeholder="Name" name="name" value={register.name} htmlFor="nameRegister" />
