@@ -44,7 +44,6 @@ function History() {
       icon: 'info',
     }).then();
   };
-
   return (
     <div>
       <div>
@@ -60,32 +59,40 @@ function History() {
           </thead>
           <tbody>
             {
-            transaction.map((t, index) => (
-              <tr key={t.id} scope="row">
-                <th scope="row">
-                  {index + 1}
-                  .
-                </th>
-                <th className="col">{formatter.format(t.total)}</th>
-                {
-                  t.status === 'ORDER' || t.status === 'WAITING PAYMENT' ? (
-                    <th className="col">
-                      <button type="button" className="btn btn-warning" onClick={() => handleClick(t.id)}>{t.status}</button>
+              transaction ? (
+                transaction.map((t, index) => (
+                  <tr key={t.id} scope="row">
+                    <th scope="row">
+                      {index + 1}
+                      .
                     </th>
-                  ) : (
-                    <th className="col">{t.status}</th>
-                  )
-                }
-                <th className="col">
-                  {
-                    t.course_name.map((course) => (
-                      <p className="row">{course}</p>
-                    ))
-                  }
-                </th>
-                <th className="col">{t.invoice_date.split('T')[0]}</th>
-              </tr>
-            ))
+                    <th className="col">{formatter.format(t.total)}</th>
+                    {
+                      t.status === 'ORDER' || t.status === 'WAITING PAYMENT' ? (
+                        <th className="col">
+                          <button type="button" className="btn btn-warning" onClick={() => handleClick(t.id)}>{t.status}</button>
+                        </th>
+                      ) : (
+                        <th className="col">{t.status}</th>
+                      )
+                    }
+                    <th className="col">
+                      {
+                        t.course_name.map((course) => (
+                          <p className="row">{course}</p>
+                        ))
+                      }
+                    </th>
+                    <th className="col">{t.invoice_date.split('T')[0]}</th>
+                  </tr>
+                ))
+              ) : (
+                <tr className="text-muted text-center">
+                  <th>
+                    No Transaction
+                  </th>
+                </tr>
+              )
           }
           </tbody>
         </table>
