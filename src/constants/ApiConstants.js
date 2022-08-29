@@ -18,3 +18,4 @@ export const API_PAYMENTS = '/payments';
 export const API_USERS = '/users';
 
 export const API_ADMIN_GIFTS = '/gifts';
+export const API_ADMIN_ALL_DELIVERY_GIFTS = '/delivery-gifts';
