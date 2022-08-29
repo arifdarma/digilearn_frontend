@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import jwtDecode from 'jwt-decode';
 import FormInput from '../Components/FormInput';
 import { API_SIGNIN } from '../constants/ApiConstants';
 import environment from '../utils/environment';
@@ -11,6 +12,7 @@ function Login(props) {
   const { authenticate, setAuthenticate } = props;
   const navigate = useNavigate();
   const [error, setError] = useState('');
+  const [role, setRole] = useState('');
   const [status, setStatus] = useState(200);
   const [login, setLogin] = useState({
     email: '',
@@ -45,6 +47,8 @@ function Login(props) {
     }).then((data) => {
       localStorage.setItem('token', data.data.idToken);
       setAuthenticate(localStorage.getItem('token'));
+      const decode = jwtDecode(data.data.idToken);
+      setRole(decode.user.role);
     })
       .catch((err) => {
         setError(JSON.parse(err.message).message);

@@ -3,6 +3,7 @@ import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
 import QRCode from 'react-qr-code';
 import moment from 'moment';
+import { Navigate } from 'react-router-dom';
 import {
   API_PURCHASE, API_USER_DETAIL, API_VOUCHERS,
 } from '../constants/ApiConstants';
@@ -210,6 +211,10 @@ function Cart(props) {
       }).then();
     });
   };
+
+  if (error === 'unauthorized error') {
+    return <Navigate replace to="/login" />;
+  }
 
   const voucherChange = (event) => {
     setCodeVoucher(event.target.value);
