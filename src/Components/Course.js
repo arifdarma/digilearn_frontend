@@ -35,12 +35,16 @@ function Course(props) {
           <p className="card-text">
             <b className="word">{formatter.format(course.price)}</b>
           </p>
-          {course.tag.map((tag) => (
-            <button type="button" name="filterTags" value={tag.Name} onClick={handleClick} key={tag.ID} className="my-0 ms-1 mt-1 btn btn-sm word" style={{ background: '#EEF7FC' }}>
-              #
-              {tag.Name}
-            </button>
-          ))}
+          {
+            course.tag && (
+              course.tag.map((tag) => (
+                <button type="button" name="filterTags" value={tag.Name} onClick={handleClick} key={tag.ID} className="my-0 ms-1 mt-1 btn btn-sm word" style={{ background: '#EEF7FC' }}>
+                  #
+                  {tag.Name}
+                </button>
+              ))
+            )
+          }
         </div>
         {
             remove ? (
