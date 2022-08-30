@@ -189,6 +189,35 @@ function AdminCourse(props) {
       });
   };
 
+  const deleteCourse = (id) => {
+    const deleteCourseDetail = `${environment.baseRootApi}${API_COURSES}/${id}`;
+    fetch(deleteCourseDetail, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    }).then((response) => {
+      if (!response.ok) {
+        return response.text().then((text) => { throw new Error(text); });
+      }
+      return response.json();
+    }).then((data) => {
+      MyAlert.fire({
+        title: <strong>Success</strong>,
+        html: <i>{data.data}</i>,
+        icon: 'success',
+      }).then();
+    })
+      .catch((err) => {
+        MyAlert.fire({
+          title: <strong>Error</strong>,
+          html: <i>{JSON.parse(err.message).message}</i>,
+          icon: 'error',
+        }).then();
+      });
+  };
+
   return (
     <div className="container mt-5">
       {
@@ -267,7 +296,10 @@ function AdminCourse(props) {
                   }
                 </td>
                 <td>
-                  <button type="button" className="btn btn-warning" onClick={() => updateClick(c)}>UPDATE</button>
+                  <div className="row px-5">
+                    <button type="button" className="col mb-1 btn btn-warning" onClick={() => updateClick(c)}>UPDATE</button>
+                    <button type="button" className="col btn btn-danger" onClick={() => deleteCourse(c.id)}>DELETE</button>
+                  </div>
                 </td>
               </tr>
             ))
