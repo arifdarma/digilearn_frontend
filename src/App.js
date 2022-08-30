@@ -20,6 +20,7 @@ import AdminCourse from './pages/AdminCourse';
 import AdminTransaction from './pages/AdminTransaction';
 import AdminReward from './pages/AdminReward';
 import AdminGift from './pages/AdminGift';
+import AddCourse from './pages/AddCourse';
 
 function App() {
   const [authenticate, setAuthenticate] = useState(localStorage.getItem('token'));
@@ -48,6 +49,7 @@ function App() {
           <Route path="/admin/transaction" index element={<AdminTransaction />} />
           <Route path="/admin/reward" index element={<AdminReward />} />
           <Route path="/admin/gift" index element={<AdminGift />} />
+          <Route path="/admin/add-course" index element={<AddCourse />} />
         </Route>
         <Route path="/purchase/:id/:token" element={<Payment />} />
       </Routes>

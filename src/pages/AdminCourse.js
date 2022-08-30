@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 import environment from '../utils/environment';
 import {
   API_CATEGORIES, API_COURSES, API_TAGS,
@@ -10,6 +11,7 @@ import FormInput from '../Components/FormInput';
 function AdminCourse(props) {
   const MyAlert = withReactContent(Swal);
   const [update, setUpdate] = useState(false);
+  const [isDelete, setIsDelete] = useState(false);
   const [course, setCourse] = useState([]);
   const [categories, setCategories] = useState([]);
   const [checked, setChecked] = useState([]);
@@ -51,7 +53,7 @@ function AdminCourse(props) {
           icon: 'error',
         }).then();
       });
-  }, [MyAlert, update]);
+  }, [update, isDelete]);
 
   const updateClick = (crs) => {
     const getCourses = fetch(`${environment.baseRootApi}${API_COURSES}/${crs.id}`, {
@@ -203,6 +205,7 @@ function AdminCourse(props) {
       }
       return response.json();
     }).then((data) => {
+      setIsDelete(true);
       MyAlert.fire({
         title: <strong>Success</strong>,
         html: <i>{data.data}</i>,
@@ -256,6 +259,14 @@ function AdminCourse(props) {
           </form>
         )
       }
+      <div className="d-flex justify-content-end mb-3">
+        <Link to="/admin/add-course" className="nav-link text-white" style={{ textDecoration: 'none' }}>
+          <button type="button" className="btn btn-success">
+            ADD
+            <i className="bi bi-plus" />
+          </button>
+        </Link>
+      </div>
       <table className="table table-dark table-striped">
         <thead>
           <tr>
