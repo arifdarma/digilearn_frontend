@@ -118,18 +118,18 @@ function AdminReward(props) {
           deliveryGift && (
             deliveryGift.map((gft, index) => (
               <tr key={gft.id}>
-                <th scope="col">{index + 1}</th>
-                <th scope="col">{gft.user_name}</th>
-                <th scope="col">{gft.gift_name}</th>
-                <th scope="col">{gft.status}</th>
-                <th scope="col">{gft.date_estimated.split('T')[0]}</th>
-                <th scope="col">
+                <td>{index + 1}</td>
+                <td>{gft.user_name}</td>
+                <td>{gft.gift_name}</td>
+                <td>{gft.status}</td>
+                <td>{gft.date_estimated.split('T')[0]}</td>
+                <td>
                   {
                     gft.status === 'ONGOING' && (
                       <button type="button" className="btn btn-success" onClick={() => handleClick(gft)}>UPDATE</button>
                     )
                   }
-                </th>
+                </td>
               </tr>
             ))
           )

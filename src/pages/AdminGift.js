@@ -113,12 +113,12 @@ function AdminGift(props) {
           gift && (
             gift.map((g, index) => (
               <tr key={g.ID}>
-                <th>{index + 1}</th>
-                <th>{g.Item}</th>
-                <th>{g.Stock}</th>
-                <th>
+                <td>{index + 1}</td>
+                <td>{g.Item}</td>
+                <td>{g.Stock}</td>
+                <td>
                   <button type="button" className="btn btn-success" onClick={() => handleClick(g)}>UPDATE</button>
-                </th>
+                </td>
               </tr>
             ))
           )

@@ -121,25 +121,25 @@ function AdminTransaction(props) {
           transaction && (
             transaction.map((tr, index) => (
               <tr key={tr.id}>
-                <th scope="col">{index + 1}</th>
-                <th scope="col">{tr.user_name}</th>
-                <th scope="col">{tr.total}</th>
-                <th scope="col">{tr.status}</th>
-                <th scope="col">{tr.invoice_date}</th>
-                <th scope="col">
+                <td>{index + 1}</td>
+                <td>{tr.user_name}</td>
+                <td>{tr.total}</td>
+                <td>{tr.status}</td>
+                <td>{tr.invoice_date}</td>
+                <td>
                   {
                     tr.course_name.map((cr) => (
                       <p className="row">{cr}</p>
                     ))
                   }
-                </th>
-                <th scope="col">
+                </td>
+                <td>
                   {
                     (tr.status !== 'COMPLETE' && tr.status !== 'CANCELED') && (
                       <button type="button" className="btn btn-success" onClick={() => handleClick(tr)}>UPDATE</button>
                     )
                   }
-                </th>
+                </td>
               </tr>
             ))
           )
