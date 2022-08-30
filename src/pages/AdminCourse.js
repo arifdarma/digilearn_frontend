@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 import environment from '../utils/environment';
 import {
   API_CATEGORIES, API_COURSES, API_TAGS,
@@ -295,7 +296,7 @@ function AdminCourse(props) {
                   <img src={c.img_url} style={{ maxWidth: '100px' }} alt="..." />
                 </td>
                 <td>{c.total_purchase}</td>
-                <td>{c.date}</td>
+                <td>{moment(c.date).format('llll')}</td>
                 <td>{c.category.Name}</td>
                 <td>
                   {

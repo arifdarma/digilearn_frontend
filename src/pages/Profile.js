@@ -239,7 +239,7 @@ function Profile() {
                           </th>
                           <th className="col">{userVoucher.code}</th>
                           <th className="col">{userVoucher.value}</th>
-                          <th className="col">{userVoucher.expired_date.split('T')[0]}</th>
+                          <th className="col">{moment(userVoucher.expired_date).format('llll')}</th>
                           <th className="col">{userVoucher.status}</th>
                         </tr>
                       ) : (
@@ -250,7 +250,7 @@ function Profile() {
                           </th>
                           <th className="col">{userVoucher.code}</th>
                           <th className="col">{userVoucher.value}</th>
-                          <th className="col">{userVoucher.expired_date.split('T')[0]}</th>
+                          <th className="col">{moment(userVoucher.expired_date).format('llll')}</th>
                           <th className="col">{userVoucher.status}</th>
                         </tr>
                       )
@@ -286,7 +286,7 @@ function Profile() {
                       <th className="col">{index + 1}</th>
                       <th className="col">{userGift.gift_name}</th>
                       <th className="col">{userGift.status}</th>
-                      <th className="col">{userGift.date_estimated.split('T')[0]}</th>
+                      <th className="col">{moment(userGift.date_estimated).format('llll')}</th>
                     </tr>
                   ))
                 )

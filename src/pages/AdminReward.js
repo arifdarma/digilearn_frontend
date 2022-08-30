@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
+import moment from 'moment';
 import environment from '../utils/environment';
 import { API_ADMIN_ALL_DELIVERY_GIFTS } from '../constants/ApiConstants';
 
@@ -122,7 +123,7 @@ function AdminReward(props) {
                 <td>{gft.user_name}</td>
                 <td>{gft.gift_name}</td>
                 <td>{gft.status}</td>
-                <td>{gft.date_estimated.split('T')[0]}</td>
+                <td>{moment(gft.date_estimated).format('llll')}</td>
                 <td>
                   {
                     gft.status === 'ONGOING' && (

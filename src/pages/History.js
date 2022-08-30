@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
 import QRCode from 'react-qr-code';
+import moment from 'moment';
 import { API_TRANSACTIONS } from '../constants/ApiConstants';
 import environment from '../utils/environment';
 import { URL_PURCHASE } from '../constants/WebAppConstants';
@@ -86,7 +87,7 @@ function History() {
                         ))
                       }
                     </th>
-                    <th className="col">{t.invoice_date.split('T')[0]}</th>
+                    <th className="col">{moment(t.invoice_date).format('llll')}</th>
                   </tr>
                 ))
               ) : (
