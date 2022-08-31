@@ -21,6 +21,7 @@ import AdminTransaction from './pages/AdminTransaction';
 import AdminReward from './pages/AdminReward';
 import AdminGift from './pages/AdminGift';
 import AddCourse from './pages/AddCourse';
+import AdminRoute from './AdminRoute';
 
 function App() {
   const [authenticate, setAuthenticate] = useState(localStorage.getItem('token'));
@@ -44,7 +45,14 @@ function App() {
           <Route path="/logout" element={<Logout authenticate={authenticate} setAuthenticate={setAuthenticate} />} />
           <Route path="/register" element={<Register />} />
         </Route>
-        <Route path="/admin/" element={<NavigationAdmin authenticate={authenticate} />}>
+        <Route
+          path="/admin/"
+          element={(
+            <AdminRoute>
+              <NavigationAdmin authenticate={authenticate} />
+            </AdminRoute>
+)}
+        >
           <Route path="/admin/course" index element={<AdminCourse />} />
           <Route path="/admin/transaction" index element={<AdminTransaction />} />
           <Route path="/admin/reward" index element={<AdminReward />} />

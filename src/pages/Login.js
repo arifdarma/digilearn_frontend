@@ -60,9 +60,14 @@ function Login(props) {
         }).then();
       });
   };
-  if (authenticate) {
-    navigate('/');
-  }
+
+  useEffect(() => {
+    if (authenticate && role === 'USER') {
+      navigate('/');
+    } else if (authenticate && role === 'ADMIN') {
+      navigate('/admin/course');
+    }
+  }, [role]);
 
   return (
     <div>
