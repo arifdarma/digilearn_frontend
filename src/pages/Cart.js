@@ -157,6 +157,9 @@ function Cart(props) {
       (obj) => obj.status === 'UNUSED',
     )
       .filter(
+        (obj) => moment(obj.expired_date).isAfter(moment()),
+      )
+      .filter(
         (obj) => obj.code.toLowerCase()
           .includes(codeVoucher.toLowerCase()),
       ));
@@ -170,13 +173,6 @@ function Cart(props) {
     }
     setCart(ct);
     localStorage.setItem('cart', JSON.stringify(ct));
-  };
-
-  const handleChange = (event) => {
-    setPurchase((prevState) => ({
-      ...prevState,
-      [event.target.id]: event.target.value,
-    }));
   };
 
   const handleClick = () => {
