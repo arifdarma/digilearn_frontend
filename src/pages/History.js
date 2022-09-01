@@ -6,10 +6,12 @@ import moment from 'moment';
 import { API_TRANSACTIONS } from '../constants/ApiConstants';
 import environment from '../utils/environment';
 import { URL_PURCHASE } from '../constants/WebAppConstants';
+import Loading from '../Components/Loading';
 
 function History() {
   const MyAlert = withReactContent(Swal);
   const [transaction, setTransaction] = useState([]);
+  const [loading, setLoading] = useState(true);
   const formatter = new Intl.NumberFormat('id-ID', {
     style: 'currency',
     currency: 'IDR',
@@ -30,6 +32,7 @@ function History() {
       return response.json();
     }).then((data) => {
       setTransaction(data.data);
+      setLoading(false);
     })
       .catch((err) => {
         MyAlert.fire({
@@ -50,19 +53,23 @@ function History() {
   };
   return (
     <div>
-      <div>
-        <table className="table bg-white border mt-3">
-          <thead className="text-white" style={{ background: '#292728' }}>
-            <tr>
-              <th scope="col">No</th>
-              <th scope="col">Amount</th>
-              <th scope="col">Status</th>
-              <th scope="col">Courses</th>
-              <th scope="col">Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
+      {
+        loading ? (
+          <Loading />
+        ) : (
+          <div>
+            <table className="table bg-white border mt-3">
+              <thead className="text-white" style={{ background: '#292728' }}>
+                <tr>
+                  <th scope="col">No</th>
+                  <th scope="col">Amount</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Courses</th>
+                  <th scope="col">Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
               transaction ? (
                 transaction.map((t, index) => (
                   <tr key={t.id} scope="row">
@@ -98,9 +105,11 @@ function History() {
                 </tr>
               )
           }
-          </tbody>
-        </table>
-      </div>
+              </tbody>
+            </table>
+          </div>
+        )
+      }
     </div>
   );
 }

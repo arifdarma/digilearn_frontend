@@ -4,11 +4,13 @@ import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { API_GIFTS, API_USER_COURSE } from '../constants/ApiConstants';
 import environment from '../utils/environment';
+import Loading from '../Components/Loading';
 
 function MyCourses(props) {
   const [error, setError] = useState('');
   const [learn, setLearn] = useState(false);
   const [isUpdated, setIsUpdated] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [course, setCourse] = useState([]);
   const MyAlert = withReactContent(Swal);
   useEffect(() => {
@@ -34,6 +36,7 @@ function MyCourses(props) {
         } else {
           setCourse(dataCourses.data);
         }
+        setLoading(false);
       })
       .catch((err) => {
         setError(err.message);
@@ -108,9 +111,14 @@ function MyCourses(props) {
 
   return (
     <div>
-      <h1>My Course</h1>
-      <div className="bg-white m-2 p-5 border rounded-5">
-        {
+      {
+        loading ? (
+          <Loading />
+        ) : (
+          <>
+            <h1>My Course</h1>
+            <div className="bg-white m-2 p-5 border rounded-5">
+              {
         course.length === 0
           ? (
             <p className="text-muted" style={{ margin: '20% auto' }}>NO COURSE AVAILABLE</p>
@@ -130,7 +138,10 @@ function MyCourses(props) {
             ))
           )
         }
-      </div>
+            </div>
+          </>
+        )
+      }
     </div>
   );
 }

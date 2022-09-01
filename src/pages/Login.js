@@ -13,6 +13,7 @@ function Login(props) {
   const navigate = useNavigate();
   const [error, setError] = useState('');
   const [role, setRole] = useState('');
+  const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(200);
   const [login, setLogin] = useState({
     email: '',
@@ -26,6 +27,7 @@ function Login(props) {
   };
 
   const handleSubmit = (event) => {
+    setLoading(true);
     event.preventDefault();
     const postLogin = `${environment.baseRootApi}${API_SIGNIN}`;
     const loginObj = {
@@ -40,6 +42,7 @@ function Login(props) {
       body: JSON.stringify(loginObj),
     }).then((response) => {
       if (!response.ok) {
+        console.log(response);
         return response.text().then((text) => { throw new Error(text); });
       }
       setStatus(response.status);
@@ -49,10 +52,11 @@ function Login(props) {
       setAuthenticate(localStorage.getItem('token'));
       const decode = jwtDecode(data.data.idToken);
       setRole(decode.user.role);
+      setLoading(false);
     })
       .catch((err) => {
-        setError(JSON.parse(err.message).message);
-        setStatus(JSON.parse(err.message).statusCode);
+        setLoading(false);
+        console.log(err);
         MyAlert.fire({
           title: <strong>Error</strong>,
           html: <i>{JSON.parse(err.message).message}</i>,
@@ -78,7 +82,16 @@ function Login(props) {
             <div className="col my-5">
               <FormInput handlechange={handleChange} type="text" placeholder="email" name="email" value={login.email} htmlFor="emailLogin" />
               <FormInput handlechange={handleChange} type="password" placeholder="password" name="password" value={login.password} htmlFor="passwordLogin" />
-              <input data-testid="submitTransfer" type="submit" className="btn btn-primary form-control w-100" value="Login" />
+              {
+                loading ? (
+                  <button className="btn btn-primary" type="button" disabled>
+                    <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true" />
+                    Loading...
+                  </button>
+                ) : (
+                  <button data-testid="submitTransfer" type="submit" className="btn btn-primary form-control w-100">Login</button>
+                )
+              }
             </div>
           </form>
         </div>

@@ -5,11 +5,13 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import Course from '../Components/Course';
 import environment from '../utils/environment';
 import { API_FAVOURITES } from '../constants/ApiConstants';
+import Loading from '../Components/Loading';
 
 function Favourites(props) {
   const navigate = useNavigate();
   const [course, setCourse] = useState([]);
   const [status, setStatus] = useState(200);
+  const [loading, setLoading] = useState(true);
   const [isUpdated, setIsUpdated] = useState(false);
   const [error, setError] = useState('');
   const MyAlert = withReactContent(Swal);
@@ -37,6 +39,7 @@ function Favourites(props) {
         } else {
           setCourse(dataCourses.data);
         }
+        setLoading(false);
       })
       .catch((err) => {
         setError(err.message);
@@ -88,21 +91,29 @@ function Favourites(props) {
   }, [status]);
 
   return (
-    <>
-      <h1>Favourites</h1>
-      <div className="row">
-        {
+    <div>
+      {
+        loading ? (
+          <Loading />
+        ) : (
+          <>
+            <h1>Favourites</h1>
+            <div className="row">
+              {
           course.length === 0
             ? (
-              <p className="text-muted" style={{ margin: '20% auto' }}>NO COURSE AVAILABLE</p>
+              <p className="text-muted" style={{ margin: '20% auto' }}>NO COURSE ADDED TO FAVOURITE</p>
             ) : (
               course.map((crs) => (
                 <Course course={crs} remove removeClick={removeClick} />
               ))
             )
       }
-      </div>
-    </>
+            </div>
+          </>
+        )
+      }
+    </div>
   );
 }
 

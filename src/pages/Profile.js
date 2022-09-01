@@ -11,11 +11,13 @@ import {
   API_USER_COURSE, API_USERS, API_USERS_GIFTS, API_VOUCHERS,
 } from '../constants/ApiConstants';
 import environment from '../utils/environment';
+import Loading from '../Components/Loading';
 
 function Profile() {
   const MyAlert = withReactContent(Swal);
   const [error, setError] = useState('');
   const [status, setStatus] = useState(200);
+  const [loading, setLoading] = useState(true);
   const [voucher, setVoucher] = useState([]);
   const [gift, setGift] = useState([]);
   const today = new Date();
@@ -90,6 +92,7 @@ function Profile() {
         } else {
           setGift(dataGift.data);
         }
+        setLoading(false);
       })
       .catch((err) => {
         setError(err.message);
@@ -115,116 +118,121 @@ function Profile() {
   }
 
   return (
-    <>
-      <h1 className="mt-5">Profile</h1>
-      <div className="col">
-        <div className="row">
-          <div className="col">
-            <img src={user.image} alt="Image" />
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-3">
-            <p>Name</p>
-          </div>
-          <div className="col">
-            <p>{user.name}</p>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-3">
-            <p>User Name</p>
-          </div>
-          <div className="col">
-            <p>{user.userName}</p>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-3">
-            <p>Email</p>
-          </div>
-          <div className="col">
-            <p>{user.email}</p>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-3">
-            <p>Phone Number</p>
-          </div>
-          <div className="col">
-            <p>{user.phoneNo}</p>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-3">
-            <p>Address</p>
-          </div>
-          <div className="col">
-            <p>{user.address}</p>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-3">
-            <p>Referral Code</p>
-          </div>
-          <div className="col">
-            <p>{user.referralCode}</p>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-3">
-            <p>Level</p>
-          </div>
-          <div className="col">
-            <p>{user.level}</p>
-          </div>
-        </div>
-      </div>
-      <nav>
-        <div className="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
-          <button
-            className="nav-link active"
-            id="nav-voucher-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#nav-home"
-            type="button"
-            role="tab"
-            aria-controls="nav-home"
-            aria-selected="true"
-            style={{ color: '#292728' }}
-          >
-            Voucher
-          </button>
-          <button
-            className="nav-link"
-            id="nav-gift-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#nav-profile"
-            type="button"
-            role="tab"
-            aria-controls="nav-profile"
-            aria-selected="false"
-            style={{ color: '#292728' }}
-          >
-            Gift
-          </button>
-        </div>
-      </nav>
-      <div className="tab-content" id="nav-tabContent">
-        <div className="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-voucher-tab">
-          <div>
-            <table className="table bg-white border mt-3">
-              <thead className="text-white" style={{ background: '#292728' }}>
-                <tr>
-                  <th scope="col">No</th>
-                  <th scope="col">Code</th>
-                  <th scope="col">Discount</th>
-                  <th scope="col">Expired Date</th>
-                  <th scope="col">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {
+    <div>
+      {
+        loading ? (
+          <Loading />
+        ) : (
+          <>
+            <h1 className="mt-5">Profile</h1>
+            <div className="col">
+              <div className="row">
+                <div className="col">
+                  <img src={user.image} alt="Image" />
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-3">
+                  <p>Name</p>
+                </div>
+                <div className="col">
+                  <p>{user.name}</p>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-3">
+                  <p>User Name</p>
+                </div>
+                <div className="col">
+                  <p>{user.userName}</p>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-3">
+                  <p>Email</p>
+                </div>
+                <div className="col">
+                  <p>{user.email}</p>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-3">
+                  <p>Phone Number</p>
+                </div>
+                <div className="col">
+                  <p>{user.phoneNo}</p>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-3">
+                  <p>Address</p>
+                </div>
+                <div className="col">
+                  <p>{user.address}</p>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-3">
+                  <p>Referral Code</p>
+                </div>
+                <div className="col">
+                  <p>{user.referralCode}</p>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-3">
+                  <p>Level</p>
+                </div>
+                <div className="col">
+                  <p>{user.level}</p>
+                </div>
+              </div>
+            </div>
+            <nav>
+              <div className="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
+                <button
+                  className="nav-link active"
+                  id="nav-voucher-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#nav-home"
+                  type="button"
+                  role="tab"
+                  aria-controls="nav-home"
+                  aria-selected="true"
+                  style={{ color: '#292728' }}
+                >
+                  Voucher
+                </button>
+                <button
+                  className="nav-link"
+                  id="nav-gift-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#nav-profile"
+                  type="button"
+                  role="tab"
+                  aria-controls="nav-profile"
+                  aria-selected="false"
+                  style={{ color: '#292728' }}
+                >
+                  Gift
+                </button>
+              </div>
+            </nav>
+            <div className="tab-content" id="nav-tabContent">
+              <div className="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-voucher-tab">
+                <div>
+                  <table className="table bg-white border mt-3">
+                    <thead className="text-white" style={{ background: '#292728' }}>
+                      <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Code</th>
+                        <th scope="col">Discount</th>
+                        <th scope="col">Expired Date</th>
+                        <th scope="col">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {
                 voucher.length === 0
                   ? (
                     <tr className="text-muted">NO VOUCHER</tr>
@@ -257,23 +265,23 @@ function Profile() {
                     ))
                   )
               }
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div className="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-gift-tab">
-          <div>
-            <table className="table bg-white border mt-3">
-              <thead className="text-white" style={{ background: '#292728' }}>
-                <tr>
-                  <th scope="col">No</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Date Estimated</th>
-                </tr>
-              </thead>
-              <tbody>
-                {
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div className="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-gift-tab">
+                <div>
+                  <table className="table bg-white border mt-3">
+                    <thead className="text-white" style={{ background: '#292728' }}>
+                      <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Date Estimated</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {
               gift.length === 0
                 ? (
                   <tr>
@@ -291,12 +299,15 @@ function Profile() {
                   ))
                 )
             }
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </>
+        )
+      }
+    </div>
   );
 }
 
