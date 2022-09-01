@@ -15,6 +15,7 @@ function Register() {
     name: '',
     email: '',
     password: '',
+    confirmPassword: '',
     username: '',
     address: '',
     phone: '',
@@ -72,6 +73,12 @@ function Register() {
           <FormInput handlechange={handleChange} type="text" placeholder="Name" name="name" value={register.name} htmlFor="nameRegister" />
           <FormInput handlechange={handleChange} type="text" placeholder="Email" name="email" value={register.email} htmlFor="emailRegister" />
           <FormInput handlechange={handleChange} type="password" placeholder="Password" name="password" value={register.password} htmlFor="passwordRegister" />
+          <FormInput handlechange={handleChange} type="password" placeholder="Password" name="confirmPassword" value={register.confirmPassword} htmlFor="confirmPasswordRegister" />
+          {
+            register.password !== register.confirmPassword && (
+              <p className="mt-0 text-danger" style={{ fontSize: '80%' }}>Password Must Be The Same</p>
+            )
+          }
           <FormInput handlechange={handleChange} type="text" placeholder="User Name" name="username" value={register.username} htmlFor="usernameRegister" />
           <FormInput handlechange={handleChange} type="text" placeholder="Address" name="address" value={register.address} htmlFor="addressRegister" />
           <FormInput handlechange={handleChange} type="text" placeholder="Phone" name="phone" value={register.phone} htmlFor="phoneRegister" />

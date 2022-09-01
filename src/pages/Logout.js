@@ -35,6 +35,7 @@ function Logout(props) {
     });
     setAuthenticate(null);
     localStorage.removeItem('token');
+    localStorage.removeItem('cart');
   }, []);
   const MyAlert = withReactContent(Swal);
   return <Navigate replace to="/" />;

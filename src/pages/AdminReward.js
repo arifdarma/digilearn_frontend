@@ -123,7 +123,7 @@ function AdminReward(props) {
                 <td>{gft.user_name}</td>
                 <td>{gft.gift_name}</td>
                 <td>{gft.status}</td>
-                <td>{moment(gft.date_estimated).format('llll')}</td>
+                <td>{moment(gft.date_estimated).utc().format('llll')}</td>
                 <td>
                   {
                     gft.status === 'ONGOING' && (

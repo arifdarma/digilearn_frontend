@@ -164,7 +164,7 @@ function AdminTransaction(props) {
                 <td>{tr.user_name}</td>
                 <td>{tr.total}</td>
                 <td>{tr.status}</td>
-                <td>{moment(tr.invoice_date).format('llll')}</td>
+                <td>{moment(tr.invoice_date).utc().format('llll')}</td>
                 <td>
                   {
                     tr.course_name.map((cr) => (

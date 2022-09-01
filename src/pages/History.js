@@ -94,7 +94,7 @@ function History() {
                         ))
                       }
                     </th>
-                    <th className="col">{moment(t.invoice_date).format('llll')}</th>
+                    <th className="col">{moment(t.invoice_date).utc().format('llll')}</th>
                   </tr>
                 ))
               ) : (
