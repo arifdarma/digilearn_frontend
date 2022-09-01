@@ -309,8 +309,8 @@ function AdminCourse(props) {
                 </td>
                 <td>
                   <div className="row px-5">
-                    <button type="button" className="col mb-1 btn btn-warning" onClick={() => updateClick(c)}>UPDATE</button>
-                    <button type="button" className="col btn btn-danger" onClick={() => deleteCourse(c.id)}>DELETE</button>
+                    <button type="button" className="col-lg-12 col-sm-12 mb-1 btn btn-warning" onClick={() => updateClick(c)}>UPDATE</button>
+                    <button type="button" className="col-lg-12 col-sm-12 btn btn-danger" onClick={() => deleteCourse(c.id)}>DELETE</button>
                   </div>
                 </td>
               </tr>
