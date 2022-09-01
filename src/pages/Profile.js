@@ -124,67 +124,30 @@ function Profile() {
           <Loading />
         ) : (
           <>
-            <h1 className="mt-5">Profile</h1>
-            <div className="col">
+            <div className="col mt-5 mb-5">
               <div className="row">
-                <div className="col">
-                  <img src={user.image} alt="Image" />
+                <div className="col-lg-4 mb-3">
+                  <img
+                    src={user.image}
+                    alt="Image"
+                    style={{ width: '100%' }}
+                  />
                 </div>
-              </div>
-              <div className="row">
-                <div className="col-3">
-                  <p>Name</p>
-                </div>
-                <div className="col">
-                  <p>{user.name}</p>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-3">
-                  <p>User Name</p>
-                </div>
-                <div className="col">
-                  <p>{user.userName}</p>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-3">
-                  <p>Email</p>
-                </div>
-                <div className="col">
-                  <p>{user.email}</p>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-3">
-                  <p>Phone Number</p>
-                </div>
-                <div className="col">
-                  <p>{user.phoneNo}</p>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-3">
-                  <p>Address</p>
-                </div>
-                <div className="col">
-                  <p>{user.address}</p>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-3">
-                  <p>Referral Code</p>
-                </div>
-                <div className="col">
-                  <p>{user.referralCode}</p>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-3">
-                  <p>Level</p>
-                </div>
-                <div className="col">
-                  <p>{user.level}</p>
+                <div className="col d-flex align-items-end">
+                  <div>
+                    <h2 className="fw-bold pb-0 mb-0" style={{ color: '#292728' }}>{user.name}</h2>
+                    <p className="text-muted mb-4 pt-0">
+                      {user.userName}
+                      {' '}
+                      |
+                      {' '}
+                      {user.email}
+                    </p>
+                    <p>{user.phoneNo}</p>
+                    <p>{user.address}</p>
+                    <p className="bg-dark p-3 text-white d-inline-block">{user.referralCode}</p>
+                    <p className="bg-dark p-3 text-white d-inline-block ms-3">{user.level}</p>
+                  </div>
                 </div>
               </div>
             </div>
