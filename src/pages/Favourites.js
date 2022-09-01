@@ -37,7 +37,9 @@ function Favourites(props) {
         if (dataCourses.data === null) {
           setCourse([]);
         } else {
-          setCourse(dataCourses.data);
+          setCourse(dataCourses.data.filter(
+            (obj) => obj.id !== 0,
+          ));
         }
         setLoading(false);
       })

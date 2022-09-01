@@ -11,6 +11,7 @@ function Register() {
   const navigate = useNavigate();
   const [error, setError] = useState('');
   const [status, setStatus] = useState(200);
+  const [loading, setLoading] = useState(false);
   const [register, setRegister] = useState({
     name: '',
     email: '',
@@ -52,9 +53,11 @@ function Register() {
       setStatus(response.status);
       return response.json();
     }).then((data) => {
+      setLoading(true);
       navigate('/login');
     })
       .catch((err) => {
+        setLoading(true);
         setError(JSON.parse(err.message).error);
         setStatus(400);
         MyAlert.fire({
@@ -83,7 +86,20 @@ function Register() {
           <FormInput handlechange={handleChange} type="text" placeholder="Address" name="address" value={register.address} htmlFor="addressRegister" />
           <FormInput handlechange={handleChange} type="text" placeholder="Phone" name="phone" value={register.phone} htmlFor="phoneRegister" />
           <FormInput handlechange={handleChange} type="text" placeholder="Referral Code" name="referral_code" value={register.referral_code} htmlFor="referralCodeRegister" />
-          <input data-testid="submitTransfer" type="submit" className="btn btn-primary form-control w-100" value="Register" />
+          <div className="row d-flex justify-content-center">
+            {
+              loading ? (
+                <button className="btn btn-primary" type="button" disabled>
+                  <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true" />
+                  Loading...
+                </button>
+              ) : (
+                <div className="col col-lg-4 col-sm-12">
+                  <button data-testid="submitTransfer" type="submit" className="btn btn-primary form-control">Register</button>
+                </div>
+              )
+            }
+          </div>
         </form>
       </div>
     </div>

@@ -56,7 +56,6 @@ function Login(props) {
     })
       .catch((err) => {
         setLoading(false);
-        console.log(err);
         MyAlert.fire({
           title: <strong>Error</strong>,
           html: <i>{JSON.parse(err.message).message}</i>,
@@ -82,16 +81,20 @@ function Login(props) {
             <div className="col my-5">
               <FormInput handlechange={handleChange} type="text" placeholder="email" name="email" value={login.email} htmlFor="emailLogin" />
               <FormInput handlechange={handleChange} type="password" placeholder="password" name="password" value={login.password} htmlFor="passwordLogin" />
-              {
+              <div className="row d-flex justify-content-center">
+                {
                 loading ? (
                   <button className="btn btn-primary" type="button" disabled>
                     <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true" />
                     Loading...
                   </button>
                 ) : (
-                  <button data-testid="submitTransfer" type="submit" className="btn btn-primary form-control w-100">Login</button>
+                  <div className="col col-lg-4 col-sm-12">
+                    <button data-testid="submitTransfer" type="submit" className="btn btn-primary form-control">Login</button>
+                  </div>
                 )
               }
+              </div>
             </div>
           </form>
         </div>
