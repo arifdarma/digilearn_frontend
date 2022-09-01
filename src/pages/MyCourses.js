@@ -1,7 +1,7 @@
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
 import React, { useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { API_GIFTS, API_USER_COURSE } from '../constants/ApiConstants';
 import environment from '../utils/environment';
 import Loading from '../Components/Loading';
@@ -124,17 +124,19 @@ function MyCourses(props) {
             <p className="text-muted" style={{ margin: '20% auto' }}>NO COURSE AVAILABLE</p>
           ) : (
             course.map((crs) => (
-              <div className="row my-3" id={crs.id}>
-                <p className="col">{crs.course_name}</p>
-                <p className="col">{crs.status}</p>
-                {
+              <Link to={{ pathname: `/course/${crs.course_id}` }} className="text-black" style={{ textDecoration: 'none', height: '250px' }}>
+                <div className="row my-3" id={crs.id}>
+                  <p className="col">{crs.course_name}</p>
+                  <p className="col">{crs.status}</p>
+                  {
                   crs.status !== 'FINISHED' ? (
                     <button type="button" className="col btn btn-success" onClick={() => startClick(crs.id)}>Start Course</button>
                   ) : (
                     <button type="button" className="col btn disabled btn-dark" onClick={() => startClick(crs.id)}>Course Learn</button>
                   )
                 }
-              </div>
+                </div>
+              </Link>
             ))
           )
         }
