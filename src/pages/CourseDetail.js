@@ -82,6 +82,7 @@ function CourseDetail(props) {
         }
       })
       .catch((err) => {
+        setLoading(false);
         setError(err.message);
         MyAlert.fire({
           title: <strong>Error</strong>,
@@ -92,7 +93,7 @@ function CourseDetail(props) {
   }, []);
   useEffect(() => {
   }, [cart]);
-  if (error === 'unauthorized error') {
+  if (error === 'Unauthorized') {
     return <Navigate replace to="/login" />;
   }
 

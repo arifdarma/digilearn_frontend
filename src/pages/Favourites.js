@@ -87,7 +87,7 @@ function Favourites(props) {
   };
 
   useEffect(() => {
-    if (error === 'unauthorized error') {
+    if (error === 'Unauthorized') {
       navigate('/login');
     }
   }, [status]);

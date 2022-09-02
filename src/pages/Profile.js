@@ -104,7 +104,7 @@ function Profile() {
         }).then();
       });
   }, []);
-  if (error === 'unauthorized error') {
+  if (error === 'Unauthorized') {
     return <Navigate replace to="/login" />;
   }
   if (user.level === 'Newbie') {

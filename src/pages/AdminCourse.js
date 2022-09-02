@@ -296,7 +296,7 @@ function AdminCourse(props) {
                   <img src={c.img_url} style={{ maxWidth: '100px' }} alt="..." />
                 </td>
                 <td>{c.total_purchase}</td>
-                <td>{moment(c.date).utc().format('llll')}</td>
+                <td>{moment(c.date).format('llll')}</td>
                 <td>{c.category.Name}</td>
                 <td>
                   {
