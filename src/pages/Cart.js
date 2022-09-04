@@ -112,7 +112,7 @@ function Cart(props) {
     let temp = 0;
     const arrCourse = [];
     let vcId;
-    if (userVoucher.length > 0) {
+    if (userVoucher.length > 0 && codeVoucher !== '') {
       vcId = userVoucher[0].id;
     } else {
       vcId = 'null';
@@ -135,10 +135,10 @@ function Cart(props) {
       total: temp,
       courses: arrCourse,
     });
-  }, [cart, level, disc]);
+  }, [cart, level, disc, codeVoucher]);
 
   useEffect(() => {
-    if (userVoucher.length === 0) {
+    if (userVoucher.length === 0 || codeVoucher === '') {
       setDisc(0);
     } else {
       const v = voucher.find((obj) => obj.id === userVoucher[0].id);
@@ -149,7 +149,7 @@ function Cart(props) {
         setDisc(0);
       }
     }
-  }, [userVoucher]);
+  }, [userVoucher, codeVoucher]);
 
   useEffect(() => {
     const temp = [...voucher];
@@ -215,6 +215,7 @@ function Cart(props) {
   const voucherChange = (event) => {
     setCodeVoucher(event.target.value);
   };
+
   return (
     <div>
       {
@@ -262,7 +263,7 @@ function Cart(props) {
                     <div className="row mt-1">
                       <p className="col-8 text-start">Discount</p>
                       {
-                        userVoucher.length > 0 ? (
+                        userVoucher.length > 0 && codeVoucher !== '' ? (
                           <p className="col-4">{userVoucher[0].value}</p>
                         ) : (
                           <p className="col-4">0</p>

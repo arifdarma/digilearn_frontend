@@ -13,6 +13,8 @@ function Home(props) {
   const [course, setCourse] = useState([]);
   const [categories, setCategories] = useState([]);
   const [tags, setTags] = useState([]);
+  const [page, setPage] = useState(1);
+  const [pageLink, setPageLink] = useState([]);
   const [filterCourse, setFilterCourse] = useState([]);
   const [filterDate, setFilterDate] = useState('');
   const [filterName, setFilterName] = useState('');
@@ -78,11 +80,18 @@ function Home(props) {
         setCategories(dataCategories.data);
         setTags(dataTags.data);
         setCourse(dataCourses.data);
-        setFilterCourse(dataCourses.data);
+        const start = page * 10 * (page - 1);
+        const end = page * 10;
+        setFilterCourse(dataCourses.data.slice(start, end));
         setFilterDate('desc');
         setFilterCategories('All');
         setFilterTags('All');
         setLoading(false);
+        const totalPage = [];
+        for (let i = 0; i < Math.ceil(dataCourses.data.length / 10); i += 1) {
+          totalPage.push(<li className="page-item"><a className="page-link" href="#" onClick={() => changePage(i + 1)}>{i + 1}</a></li>);
+        }
+        setPageLink(totalPage);
         if (dataTrendingCourse.data === null) {
           setTrendingCourse([]);
         } else {
@@ -100,41 +109,60 @@ function Home(props) {
 
   useEffect(() => {
     const temp = [...course];
-    setFilterCourse(
-      temp.filter(
-        (obj) => obj.name.toLowerCase()
-          .includes(filterName.toLowerCase()),
-      )
-        .sort((a, b) => {
+    if (filterTags === 'All' && filterCategories === 'All' && filterName === '') {
+      let start = 0;
+      if (page === 1) {
+        start = 0;
+      } else {
+        start = ((page - 1) * 10);
+      }
+      const end = page * 10;
+      setFilterCourse(temp.sort(
+        (a, b) => {
           if (filterDate === 'desc') {
             return new Date(b.date) - new Date(a.date);
           }
           return new Date(a.date) - new Date(b.date);
-        })
-        .filter(
-          (obj) => {
-            if (filterCategories === 'All') {
-              return obj;
-            }
-            return obj.category.Name.toLowerCase().includes(filterCategories.toLowerCase());
-          },
+        },
+      )
+        .slice(start, end));
+    } else {
+      setFilterCourse(
+        temp.filter(
+          (obj) => obj.name.toLowerCase()
+            .includes(filterName.toLowerCase()),
         )
-        .filter(
-          (obj) => {
-            if (filterTags === 'All') {
+          .sort((a, b) => {
+            if (filterDate === 'desc') {
+              return new Date(b.date) - new Date(a.date);
+            }
+            return new Date(a.date) - new Date(b.date);
+          })
+          .filter(
+            (obj) => {
+              if (filterCategories === 'All') {
+                return obj;
+              }
+              return obj.category.Name.toLowerCase().includes(filterCategories.toLowerCase());
+            },
+          )
+          .filter(
+            (obj) => {
+              if (filterTags === 'All') {
+                return obj;
+              }
+              const resObj = obj.tag.find(
+                (objTag) => objTag.Name.toLowerCase() === filterTags.toLowerCase(),
+              );
+              if (!resObj) {
+                return false;
+              }
               return obj;
-            }
-            const resObj = obj.tag.find(
-              (objTag) => objTag.Name.toLowerCase() === filterTags.toLowerCase(),
-            );
-            if (!resObj) {
-              return false;
-            }
-            return obj;
-          },
-        ),
-    );
-  }, [filterName, filterDate, filterCategories, filterTags]);
+            },
+          ),
+      );
+    }
+  }, [filterName, filterDate, filterCategories, filterTags, page]);
 
   useEffect(() => {
     setFilterName(filterObj.filterName);
@@ -155,6 +183,10 @@ function Home(props) {
       ...filterObj,
       [event.target.name]: event.target.value,
     });
+  };
+
+  const changePage = (id) => {
+    setPage(id);
   };
 
   return (
@@ -240,6 +272,13 @@ function Home(props) {
             </>
           )
       }
+      <nav aria-label="Page navigation" className="mt-5">
+        <ul className="pagination justify-content-center">
+          {
+            pageLink
+          }
+        </ul>
+      </nav>
     </div>
   );
 }
