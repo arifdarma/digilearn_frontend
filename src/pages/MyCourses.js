@@ -124,19 +124,19 @@ function MyCourses(props) {
             <p className="text-muted" style={{ margin: '20% auto' }}>NO COURSE AVAILABLE</p>
           ) : (
             course.map((crs) => (
-              <Link to={{ pathname: `/course/${crs.course_id}` }} className="text-black" style={{ textDecoration: 'none', height: '250px' }}>
-                <div className="row my-3" id={crs.id}>
-                  <p className="col">{crs.course_name}</p>
-                  <p className="col">{crs.status}</p>
-                  {
+              <div className="row my-3" id={crs.id} style={{ textDecoration: 'none' }}>
+                <Link to={{ pathname: `/course/${crs.course_id}` }} className="text-black col-lg-4 col-sm-12">
+                  <p>{crs.course_name}</p>
+                </Link>
+                <p className="col-lg-4 col-sm-12">{crs.status}</p>
+                {
                   crs.status !== 'FINISHED' ? (
-                    <button type="button" className="col btn btn-success" onClick={() => startClick(crs.id)}>Start Course</button>
+                    <button type="button" className="col btn btn-success col-lg-4 col-sm-12" onClick={() => startClick(crs.id)}>Start Course</button>
                   ) : (
-                    <button type="button" className="col btn disabled btn-dark" onClick={() => startClick(crs.id)}>Course Learn</button>
+                    <button type="button" className="col btn disabled btn-dark col-sm-12 col-lg-4">Course Learn</button>
                   )
                 }
-                </div>
-              </Link>
+              </div>
             ))
           )
         }
