@@ -38,7 +38,7 @@ function Register() {
       username: register.username,
       address: register.address,
       phone: register.phone,
-      referral_code: register.referral_code,
+      referred_code: register.referral_code,
     };
     fetch(postRegister, {
       method: 'POST',
