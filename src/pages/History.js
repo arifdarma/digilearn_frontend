@@ -57,7 +57,7 @@ function History() {
         loading ? (
           <Loading />
         ) : (
-          <div>
+          <div className="table-responsive">
             <table className="table bg-white border mt-3">
               <thead className="text-white" style={{ background: '#292728' }}>
                 <tr>

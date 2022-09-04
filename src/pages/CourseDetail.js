@@ -165,8 +165,8 @@ function CourseDetail(props) {
         <Loading />
       ) : (
         <div className="my-3 border-bottom p-3">
-          <div style={{ width: '100%' }} className="d-flex justify-content-between">
-            <div>
+          <div style={{ width: '100%' }} className="d-flex justify-content-between row">
+            <div className="col-sm-12 col-lg-8">
               <p className="">
                 <b>
                   {course.category}
@@ -192,7 +192,7 @@ function CourseDetail(props) {
                 <p className="">{course.deskripsi}</p>
               </div>
             </div>
-            <div style={{ width: '30%', minWidth: '400px' }}>
+            <div style={{ width: '30%', minWidth: '400px' }} className="col-lg-6 col-sm-12">
               <div className="border p-5 rounded bg-white">
                 <img src={course.img_url} className="" style={{ height: '100%', width: '100%', objectFit: 'cover' }} alt="..." />
               </div>
